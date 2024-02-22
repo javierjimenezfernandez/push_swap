@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/02/22 12:44:45 by javjimen         ###   ########.fr        #
+#    Updated: 2024/02/22 13:51:53 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ LIBFT		= $(LIBFT_PATH)/libft.a
 
 # List of source files
 SRC_DIR		= src/
-SRC			= $(addprefix $(SRC_DIR), push_swap.c)
+SRC			= $(addprefix $(SRC_DIR), push_swap.c \
+									  input_control.c)
 
 # List of object files
 OBJ_DIR		= obj/
