@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:06:14 by javjimen          #+#    #+#             */
-/*   Updated: 2024/02/29 14:11:12 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:21:19 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ ps_error_t	input_control(int argc, char **argv, t_list **stack_a)
 	if (split_argv(argc, argv, stack_a))
 			return (PS_ERROR);
 	i = *stack_a;
-	while (i->next)
+	while (i)
 	{
 		if (is_format_incorrect(i->content))
 			return (PS_ERROR);
 		j = i->next;
-		while (j->next)
+		while (j)
 		{
 			if (is_duplicated(i->content, j->content))
 				return (PS_ERROR);
