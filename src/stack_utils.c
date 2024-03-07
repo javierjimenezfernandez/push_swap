@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_input.c                                      :+:      :+:    :+:   */
+/*   stack_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/22 13:51:00 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/07 17:19:24 by javjimen         ###   ########.fr       */
+/*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
+/*   Updated: 2024/03/07 17:38:28 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ps_error	parse_input(t_list **lst)
+void	init_stack(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*dummy_node;
+
+	dummy_node = NULL;
+	stack_a = &dummy_node;
+	stack_b = &dummy_node;
+}
+
+void	free_stack(t_list **stack)
+{
+	ft_lstclear(stack, free);
+	free(stack);
+}
+
+void	print_stack(t_list **stack)
 {
 	t_list	*i;
-	int		*atoi_argv_ptr;
 
-	if (!lst)
-		return (PS_ERROR);
-	i = *lst;
+	i = *stack;
 	while (i)
 	{
-		atoi_argv_ptr = (int *)malloc(sizeof(int));
-		if (!atoi_argv_ptr)
-			return (PS_ERROR);
-		*atoi_argv_ptr = ft_atoi(i->content);
-		free(i->content);
-		i->content = atoi_argv_ptr;
+		ft_printf("%d\n", *(int *)(i->content));
 		i = i->next;
 	}
-	return (PS_OK);
 }
