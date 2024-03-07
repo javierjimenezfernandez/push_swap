@@ -6,26 +6,26 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:06:14 by javjimen          #+#    #+#             */
-/*   Updated: 2024/02/29 17:21:19 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:19:07 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-ps_error_t	is_bigger_than_int(char *str, int len)
+t_ps_error	is_bigger_than_int(char *str, int len)
 {
 	if (str[0] == '+')
 	{
 		str++;
 		len--;
 	}
-	if ( ((len == 10) && (ft_strncmp(str, "2147483648", len) > 0)) || \
-	     ((len > 10) && (ft_strncmp(str, "-2147483649", len) > 0)) )
+	if (((len == 10) && (ft_strncmp(str, MAX_INT, len) > 0)) || \
+		((len > 10) && (ft_strncmp(str, MIN_INT, len) > 0)))
 		return (PS_ERROR);
 	return (PS_OK);
 }
 
-ps_error_t	is_duplicated(char *str1, char *str2)
+t_ps_error	is_duplicated(char *str1, char *str2)
 {
 	int	len1;
 	int	len2;
@@ -35,22 +35,22 @@ ps_error_t	is_duplicated(char *str1, char *str2)
 	if (len1 >= len2)
 	{
 		if (ft_strncmp(str1, str2, len1) == 0)
-					return (PS_ERROR);
+			return (PS_ERROR);
 	}
 	else
 	{
 		if (ft_strncmp(str1, str2, len2) == 0)
-					return (PS_ERROR);
+			return (PS_ERROR);
 	}
 	return (PS_OK);
 }
 
-ps_error_t	is_format_incorrect(char *str)
+t_ps_error	is_format_incorrect(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '+' || str[i] =='-')
+	if (str[i] == '+' || str[i] == '-')
 		i++;
 	while (str[i])
 	{
@@ -63,13 +63,11 @@ ps_error_t	is_format_incorrect(char *str)
 	return (PS_OK);
 }
 
-ps_error_t	input_control(int argc, char **argv, t_list **stack_a)
+t_ps_error	input_control(t_list **stack_a)
 {
 	t_list	*i;
 	t_list	*j;
 
-	if (split_argv(argc, argv, stack_a))
-			return (PS_ERROR);
 	i = *stack_a;
 	while (i)
 	{
