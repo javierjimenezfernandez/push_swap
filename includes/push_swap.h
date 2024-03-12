@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/07 17:39:04 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/11 21:30:11 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef int	t_ps_error;
 int			main(int argc, char **argv);
 
 /* stack utils */
-void		init_stack(t_list **stack_a, t_list **stack_b);
+//void		init_stack(t_list **stack_a, t_list **stack_b);
 void		free_stack(t_list **stack);
 void		print_stack(t_list **stack);
 
