@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 01:55:53 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:49:22 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	main(int argc, char **argv)
 	t_list	**stack_a;
 	t_list	**stack_b;
 	t_list	**stack_o;
-	t_list	*i;
 	int		stack_size;
 
 	if (argc > 1)
@@ -25,14 +24,12 @@ int	main(int argc, char **argv)
 		stack_a = (t_list **)malloc(sizeof(t_list *));
 		stack_b = (t_list **)malloc(sizeof(t_list *));
 		stack_o = (t_list **)malloc(sizeof(t_list *));
-		init_stack(stack_a, stack_b);
 		if (split_argv2list(argc, argv, stack_a) || input_control(stack_a) || \
 			parse_input(stack_a))
 		{
 			ft_putstr_fd("Error\n", 2);
 			return (PS_ERROR);
 		}
-		i = *stack_a;
 		print_stacks(stack_a, stack_b);
 		stack_size = ft_lstsize(*stack_a);
 		ft_printf("Stack size: %d\n\n", stack_size);

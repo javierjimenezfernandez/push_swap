@@ -6,20 +6,11 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 02:08:03 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/12 15:50:12 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	init_stack(t_list **stack_a, t_list **stack_b)
-{
-	t_list	*dummy_node;
-
-	dummy_node = NULL;
-	stack_a = &dummy_node;
-	stack_b = &dummy_node;
-}
 
 void	free_stack(t_list **stack)
 {
