@@ -6,31 +6,34 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 15:49:34 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/13 12:26:29 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "ft_printf.h"
+#ifndef PUSH_SWAP_H
+# define PUSH_SWAP_H
+
+# include "libft.h"
+# include "ft_printf.h"
 
 /* push_swap magic numbers */
-#define PS_OK		0
-#define PS_ERROR	1
-#define MAX_INT		"2147483647"
-#define MIN_INT		"-2147483648"
+# define PS_OK		0
+# define PS_ERROR	1
+# define MAX_INT	"2147483647"
+# define MIN_INT	"-2147483648"
 
 /* push swap opeation names */
-#define SA	"sa"
-#define SB	"sb"
-#define SS	"ss"
-#define PA	"pa"
-#define PB	"pb"
-#define RA	"ra"
-#define RB	"rb"
-#define RR	"rr"
-#define RRA	"rra"
-#define RRB	"rrb"
-#define RRR	"rrr"
+# define SA		"sa"
+# define SB		"sb"
+# define SS		"ss"
+# define PA		"pa"
+# define PB		"pb"
+# define RA		"ra"
+# define RB		"rb"
+# define RR		"rr"
+# define RRA	"rra"
+# define RRB	"rrb"
+# define RRR	"rrr"
 
 /* typedef */
 typedef int	t_ps_error;
