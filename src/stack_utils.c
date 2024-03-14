@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 15:50:12 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/03/12 21:06:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,134 @@ void	print_operations(t_list **stack)
 		ft_printf("%s\n", (char *)(i->content));
 		i = i->next;
 	}
+}
+
+int	smallest(t_list **stack)
+{
+	int		candidate;
+	t_list	*i;
+
+	candidate = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	while (i)
+	{
+		if (*(int *)(i->content) < candidate)
+			candidate = *(int *)(i->content);
+		i = i->next;
+	}
+	return (candidate);
+}
+
+int	distance_to_smallest(t_list **stack)
+{
+	int		candidate;
+	int		distance;
+	int		count;
+	t_list	*i;
+
+	count = 0;
+	distance = count;
+	candidate = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	count++;
+	while (i)
+	{
+		if (*(int *)(i->content) < candidate)
+		{
+			candidate = *(int *)(i->content);
+			distance = count;
+		}
+		count++;
+		i = i->next;
+	}
+	return (distance);
+}
+
+int	distance_and_smallest(t_list **stack, int *smallest)
+{
+	int		distance;
+	int		count;
+	t_list	*i;
+
+	count = 0;
+	distance = count;
+	*smallest = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	count++;
+	while (i)
+	{
+		if (*(int *)(i->content) < *smallest)
+		{
+			*smallest = *(int *)(i->content);
+			distance = count;
+		}
+		count++;
+		i = i->next;
+	}
+	return (distance);
+}
+
+int	biggest(t_list **stack)
+{
+	int		candidate;
+	t_list	*i;
+
+	candidate = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	while (i)
+	{
+		if (*(int *)(i->content) > candidate)
+			candidate = *(int *)(i->content);
+		i = i->next;
+	}
+	return (candidate);
+}
+
+int	distance_to_biggest(t_list **stack)
+{
+	int		candidate;
+	int		distance;
+	int		count;
+	t_list	*i;
+
+	count = 0;
+	distance = count;
+	candidate = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	count++;
+	while (i)
+	{
+		if (*(int *)(i->content) > candidate)
+		{
+			candidate = *(int *)(i->content);
+			distance = count;
+		}
+		count++;
+		i = i->next;
+	}
+	return (distance);
+}
+
+int	distance_and_biggest(t_list **stack, int *biggest)
+{
+	int		distance;
+	int		count;
+	t_list	*i;
+
+	count = 0;
+	distance = count;
+	*biggest = *(int *)((*stack)->content);
+	i = (*stack)->next;
+	count++;
+	while (i)
+	{
+		if (*(int *)(i->content) > *biggest)
+		{
+			*biggest = *(int *)(i->content);
+			distance = count;
+		}
+		count++;
+		i = i->next;
+	}
+	return (distance);
 }

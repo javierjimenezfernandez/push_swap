@@ -30,32 +30,18 @@ int	main(int argc, char **argv)
 			ft_putstr_fd("Error\n", 2);
 			return (PS_ERROR);
 		}
+		ft_printf("Original stacks:\n");
 		print_stacks(stack_a, stack_b);
 		stack_size = ft_lstsize(*stack_a);
-		ft_printf("Stack size: %d\n\n", stack_size);
-		ft_printf("sa\n");
-		sa(stack_a, stack_o);
+		ft_printf("size: %d\n", stack_size);
+		ft_printf("---------------------------------------------\n\n");
+		compute_operations(stack_a, stack_b, stack_o, stack_size);
+		ft_printf("---------------------------------------------\n\n");
+		ft_printf("Result: \n");
 		print_stacks(stack_a, stack_b);
 		ft_printf("\n");
-		ft_printf("pb\n");
-		pb(stack_b, stack_a, stack_o);
-		print_stacks(stack_a, stack_b);
-		ft_printf("\n");
-		ft_printf("pb\n");
-		pb(stack_b, stack_a, stack_o);
-		print_stacks(stack_a, stack_b);
-		ft_printf("\n");
-		ft_printf("rr\n");
-		rr(stack_a, stack_b, stack_o);
-		print_stacks(stack_a, stack_b);
-		ft_printf("\n");
-		ft_printf("rra\n");
-		rra(stack_a, stack_o);
-		print_stacks(stack_a, stack_b);
-		ft_printf("\n");
-		ft_printf("Operations: \n");
+		ft_printf("%d operations: \n", ft_lstsize(*stack_o));
 		print_operations(stack_o);
-		// ordering algorithm
 		free_stacks(stack_a, stack_b, stack_o);
 	}
 	return (PS_OK);
