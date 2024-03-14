@@ -19,7 +19,7 @@ LIBFT		= $(LIBFT_PATH)/libft.a
 
 # List of source files
 SRC_DIR		= src/
-SRC			= $(addprefix $(SRC_DIR), push_swap.c \
+SRC			= $(addprefix $(SRC_DIR), main.c \
 									  stack_utils.c \
 									  split_argv2list.c \
 									  input_control.c \
