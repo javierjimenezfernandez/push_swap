@@ -55,6 +55,13 @@
 
 /* typedef */
 typedef int	t_ps_error;
+typedef struct s_psnode
+{
+	int				index;
+	void			*value;
+	struct s_psnode	*prev;
+	struct s_psnode	*next;
+}				t_psnode;
 
 /* main */
 int			main(int argc, char **argv);
