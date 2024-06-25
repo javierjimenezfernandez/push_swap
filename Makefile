@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/03/12 21:51:20 by javjimen         ###   ########.fr        #
+#    Updated: 2024/06/25 21:14:42 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,6 @@ SRC			= $(addprefix $(SRC_DIR), main.c \
 									  stack_utils.c \
 									  split_argv2list.c \
 									  input_control.c \
-									  parse_input.c \
 									  swap.c \
 									  push.c \
 									  rotate.c \
