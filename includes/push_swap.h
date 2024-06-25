@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/14 01:23:25 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/25 20:45:53 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ t_ps_error	split_argv2list(int argc, char **argv, t_list **stack_a);
 
 /* input control */
 t_ps_error	is_bigger_than_int(char *str, int len);
-t_ps_error	is_duplicated(char *str1, char *str2);
+t_ps_error	is_duplicated(int num1, int num2);
 t_ps_error	is_format_incorrect(char *str);
 t_ps_error	input_control(t_list **stack_a);
 

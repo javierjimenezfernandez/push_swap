@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:06:14 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/07 17:19:07 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/25 21:02:28 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,10 @@ t_ps_error	is_bigger_than_int(char *str, int len)
 	return (PS_OK);
 }
 
-t_ps_error	is_duplicated(char *str1, char *str2)
+t_ps_error	is_duplicated(int num1, int num2)
 {
-	int	len1;
-	int	len2;
-
-	len1 = ft_strlen(str1);
-	len2 = ft_strlen(str2);
-	if (len1 >= len2)
-	{
-		if (ft_strncmp(str1, str2, len1) == 0)
-			return (PS_ERROR);
-	}
-	else
-	{
-		if (ft_strncmp(str1, str2, len2) == 0)
-			return (PS_ERROR);
-	}
+	if (num1 == num2)
+		return (PS_ERROR);
 	return (PS_OK);
 }
 
@@ -52,6 +39,8 @@ t_ps_error	is_format_incorrect(char *str)
 	i = 0;
 	if (str[i] == '+' || str[i] == '-')
 		i++;
+	if (str[i] == '\0')
+		return (PS_ERROR);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -73,10 +62,16 @@ t_ps_error	input_control(t_list **stack_a)
 	{
 		if (is_format_incorrect(i->content))
 			return (PS_ERROR);
+		i = i->next;
+	}
+	parse_input (stack_a);
+	i = *stack_a;
+	while (i)
+	{
 		j = i->next;
 		while (j)
 		{
-			if (is_duplicated(i->content, j->content))
+			if (is_duplicated(*(int *)(i->content), *(int *)(j->content)))
 				return (PS_ERROR);
 			j = j->next;
 		}
