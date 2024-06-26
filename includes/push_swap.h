@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/25 20:45:53 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:20:11 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@
 
 /* typedef */
 typedef int	t_ps_error;
+typedef struct s_hold
+{
+	t_list	*hold_first;
+	t_list	*hold_second;
+}				t_hold;
 typedef struct s_psnode
 {
 	int				index;
