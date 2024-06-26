@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:05 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/14 01:24:22 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:03:01 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	distance_to_next_smaller(t_list **stack, t_list *node)
 	t_list	*i;
 
 	candidate = smallest(stack);
+	distance = distance_to_smallest(stack);
+	/* debug */
+	ft_printf("in distance_to_next_smaller: distance_to_biggest = %d\n", distance_to_smallest(stack));
 	if (*(int *)(node->content) < candidate)
-		return (distance_to_smallest(stack));
+		return (distance);
 	count = 0;
-	distance = count;
 	i = *stack;
 	while (i)
 	{
@@ -36,6 +38,8 @@ int	distance_to_next_smaller(t_list **stack, t_list *node)
 		count++;
 		i = i->next;
 	}
+	/* debug */
+	ft_printf("in distance_to_next_smaller: actual computed distance = %d\n", distance);
 	return (distance);
 }
 
@@ -47,10 +51,12 @@ int	distance_to_next_bigger(t_list **stack, t_list *node)
 	t_list	*i;
 
 	candidate = biggest(stack);
+	distance = distance_to_biggest(stack);
+	/* debug */
+	ft_printf("in distance_to_next_bigger: distance_to_biggest = %d\n", distance_to_biggest(stack));
 	if (*(int *)(node->content) > candidate)
-		return (distance_to_biggest(stack));
+		return (distance);
 	count = 0;
-	distance = count;
 	i = *stack;
 	while (i)
 	{
@@ -63,6 +69,8 @@ int	distance_to_next_bigger(t_list **stack, t_list *node)
 		count++;
 		i = i->next;
 	}
+	/* debug */
+	ft_printf("in distance_to_next_bigger: actual computed distance = %d\n", distance);
 	return (distance);
 }
 
@@ -72,8 +80,10 @@ int	compute_r_distance(t_list **stack, t_list *node)
 	t_list	*i;
 
 	ra_count = 0;
-	ft_printf("node = %p\n", node);
-	ft_printf("node->content = %d\n", *(int *)(node->content));
+	/* debug */
+	ft_printf("in compute_r_distance: node = %p\n", node);
+	ft_printf("in compute_r_distance: node->content = %d\n", *(int *)(node->content));
+	ft_printf("in compute_r_distance: distance_to_smallest = %d\n", distance_to_smallest(stack));
 	if (distance_to_smallest(stack))
 		ra_count = distance_to_next_bigger(stack, node);
 	else
@@ -81,16 +91,21 @@ int	compute_r_distance(t_list **stack, t_list *node)
 		i = *stack;
 		while (i)
 		{
-			ft_printf("hello there2\n");
+			/* debug */
+			ft_printf("in compute_r_distance: hello there2\n");
 			if (*(int *)(i->content) > *(int *)(node->content))
 			{
-				ft_printf("hello there3\n");
+				/* debug */
+				ft_printf("in compute_r_distance: hello there3\n");
 				break ;
 			}
 			ra_count++;
 			i = i->next;
 		}
 	}
+	/* debug */
+	ft_printf("in compute_r_distance: distance_to_next_bigger (function) = %d\n", distance_to_next_bigger(stack, node));
+	ft_printf("in compute_r_distance: computed r distance (ra_count) = %d\n", ra_count);
 	return (ra_count);
 }
 
@@ -103,6 +118,8 @@ void	push_back_numbers(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	{
 		ra_count = compute_r_distance(stack_a, *stack_b);
 		rra_count = ft_lstsize(*stack_a) - ra_count;
+		/* debug */
+		ft_printf("in push_back_numbers: ra_count = %d, rra_count = %d\n", ra_count, rra_count);
 		if (ra_count <= rra_count)
 		{
 			while (ra_count--)
