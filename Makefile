@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/06/25 21:14:42 by javjimen         ###   ########.fr        #
+#    Updated: 2024/06/26 21:20:30 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,8 @@ DIR_DUP		= mkdir -p $(@D)
 CFLAGS 		+= -Wall -Wextra -Werror -I includes -I libft/includes
 ARFLAGS		= -r -c -s
 
+SANITIZE	= $(CFLAGS) -fsanitize=address
+
 # Rule name protection
 .PHONY:		all libft clean fclean re
 
@@ -74,3 +76,6 @@ fclean:		clean
 			$(RM) $(NAME)
 
 re:			fclean all
+
+sanitize:	$(LIBFT) $(OBJ) $(INLCUDES)
+			$(CC) $(SANITIZE) $(OBJ) -o $(NAME) $(LIBFT)
