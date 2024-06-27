@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:54:24 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/26 21:27:25 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:02:47 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_ps_error	split_argv2list(int argc, char **argv, t_list **stack_a)
 		while (splitted_argv[j] != NULL)
 		{
 			new_node = ft_lstnew(ft_strdup(splitted_argv[j]));
+			/* implement retroactive free to avoid leaks ¿return PS_MALLOC_FAIL?*/
 			if (!new_node)
 				return (PS_ERROR);
 			ft_printf("in split_argv2list: hi\n");

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/26 21:31:21 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:04:06 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@ int	main(int argc, char **argv)
 
 	if (argc > 1)
 	{
+		/* ¿return PS_MALLOC_FAIL?*/
 		stack_a = (t_list **)malloc(sizeof(t_list *));
+		if (!stack_a)
+			return (PS_ERROR);
 		stack_b = (t_list **)malloc(sizeof(t_list *));
+		if (!stack_b)
+			return (PS_ERROR);
 		stack_o = (t_list **)malloc(sizeof(t_list *));
+		if (!stack_o)
+			return (PS_ERROR);
 		*stack_a = NULL;
 		*stack_b = NULL;
 		*stack_o = NULL;

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 13:06:14 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/25 21:14:08 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 19:02:36 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ t_ps_error	parse_input(t_list **lst)
 	while (i)
 	{
 		atoi_argv_ptr = (int *)malloc(sizeof(int));
+		/* implement retroactive free to avoid leaks ¿return PS_MALLOC_FAIL?*/
 		if (!atoi_argv_ptr)
 			return (PS_ERROR);
 		*atoi_argv_ptr = ft_atoi(i->content);

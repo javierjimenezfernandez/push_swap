@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 21:06:37 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 21:06:54 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,96 @@ void	print_stacks(t_list **stack_a, t_list **stack_b)
 		else if (!i && j)
 		{
 			ft_printf("\t\t|\t%d\t\n", *(int *)(j->content));
+			j = j->next;
+		}
+	}
+}
+
+int	get_index(t_content *content)
+{
+	return(*(int *)(content->index));
+}
+
+int	get_value(t_content *content)
+{
+	return(*(int *)(content->value));
+}
+
+void	set_index(t_content *content, int *index)
+{
+	*(content->index) = *index;
+}
+
+void	set_value(t_content *content, int *value)
+{
+	*(content->value) = *value;
+}
+
+void	free_content(t_content *content)
+{
+	free(content->index);
+	free(content->value);
+	free(content);
+}
+
+void	free_stack_w_index(t_list **stack)
+{
+	ft_lstclear(stack, free_content);
+	free(stack);
+}
+
+void	print_index(t_content *content)
+{
+	ft_printf("%d", *(int *)(content->index));
+}
+
+void	print_value(t_content *content)
+{
+	ft_printf("%d", *(int *)(content->value));
+}
+
+void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
+{
+	t_list	*i;
+	t_list	*j;
+
+	i = *stack_a;
+	j = *stack_b;
+	ft_printf("\tstack_a\t\t|\t\tstack_b\t\n");
+	ft_printf("index\tvalue\t\t|\tindex\tvalue\t\n");
+	while (i || j)
+	{
+		if (i && j)
+		{
+			print_index((int *)(i->content));
+			ft_printf("\t");
+			print_value((int *)(i->content));
+			ft_printf("\t\t|\t");
+			print_index((int *)(j->content));
+			ft_printf("\t");
+			print_value((int *)(j->content));
+			ft_printf("\t\n");
+			i = i->next;
+			j = j->next;
+		}
+		else if (i && !j)
+		{
+			print_index((int *)(i->content));
+			ft_printf("\t");
+			print_value((int *)(i->content));
+			ft_printf("\t\t|\t");
+			ft_printf("\t");
+			ft_printf("\t\n");
+			i = i->next;
+		}
+		else if (!i && j)
+		{
+			ft_printf("\t");
+			ft_printf("\t\t|\t");
+			print_index((int *)(j->content));
+			ft_printf("\t");
+			print_value((int *)(j->content));
+			ft_printf("\t\n");
 			j = j->next;
 		}
 	}

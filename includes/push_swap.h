@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/26 20:20:11 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 21:10:02 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@
 
 /* typedef */
 typedef int	t_ps_error;
+typedef struct s_content
+{
+	int	*index;
+	int	*value;
+}				t_content;
 typedef struct s_hold
 {
 	t_list	*hold_first;
@@ -77,6 +82,15 @@ void		free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 t_list		*return_second2last(t_list **stack);
 void		print_stack(t_list **stack);
 void		print_stacks(t_list **stack_a, t_list **stack_b);
+int			get_index(t_content *content);
+int			get_value(t_content *content);
+void		set_index(t_content *content, int *index);
+void		set_value(t_content *content, int *value);
+void		free_content(t_content *content);
+void		free_stack_w_index(t_list **stack);
+void		print_index(t_content *content);
+void		print_value(t_content *content);
+void		print_stacks_w_index(t_list **stack_a, t_list **stack_b);
 void		add_operation(t_list **stack_o, char *op_name);
 void		print_operations(t_list **stack);
 int			smallest(t_list **stack);
@@ -92,12 +106,10 @@ t_ps_error	split_argv2list(int argc, char **argv, t_list **stack_a);
 
 /* input control */
 t_ps_error	is_bigger_than_int(char *str, int len);
-t_ps_error	is_duplicated(int num1, int num2);
 t_ps_error	is_format_incorrect(char *str);
-t_ps_error	input_control(t_list **stack_a);
-
-/* parse input */
 t_ps_error	parse_input(t_list **lst);
+t_ps_error	is_duplicated(int num1, int num2);
+t_ps_error	input_control(t_list **stack_a);
 
 /* swap */
 void		swap(t_list **stack);
@@ -154,5 +166,9 @@ void		middle_algorithm(t_list **stack_a, t_list **stack_b, \
 /* big algorithm */
 void		big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
+
+/* assign index */
+void		add_index(t_list **stack);
+void		assign_index(t_list **stack);
 
 #endif

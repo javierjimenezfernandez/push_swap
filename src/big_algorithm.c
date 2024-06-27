@@ -6,13 +6,13 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/26 21:13:57 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/27 21:04:31 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	distance_and_hold_first(t_list **stack, t_hold *hold, int chunk_min, int chunk_max)
+int	distance_and_hold_first(t_list **stack, t_hold *holder, int chunk_min, int chunk_max)
 {
 	int		distance;
 	t_list	*i;
@@ -26,19 +26,19 @@ int	distance_and_hold_first(t_list **stack, t_hold *hold, int chunk_min, int chu
 	{
 		if ((*(int *)i->content >= chunk_min) && (*(int *)i->content <= chunk_max))
 		{
-			hold->hold_first = i;
+			holder->hold_first = i;
 			break ;
 		}
 		distance++;
 		i = i->next;
 	}
 	/* debug */
-	ft_printf("in distance_and_hold_first: hold_first->content = %d\n", *(int *)((hold->hold_first)->content));
+	ft_printf("in distance_and_hold_first: hold_first->content = %d\n", *(int *)((holder->hold_first)->content));
 	ft_printf("in distance_and_hold_first: distance = %d\n", distance);
 	return (distance);
 }
 
-int	distance_and_hold_second(t_list **stack, t_hold *hold, int chunk_min, int chunk_max)
+int	distance_and_hold_second(t_list **stack, t_hold *holder, int chunk_min, int chunk_max)
 {
 	int		count;
 	int		distance;
@@ -57,10 +57,10 @@ int	distance_and_hold_second(t_list **stack, t_hold *hold, int chunk_min, int ch
 	{
 		if ((*(int *)i->content >= chunk_min) && (*(int *)i->content <= chunk_max))
 		{
-			hold->hold_second = i;
+			holder->hold_second = i;
 			distance = count;
 			/* debug */
-			//ft_printf("in distance_and_hold_second: hold_second->content = %d\n", *(int *)((*(*hold_second))->content));
+			//ft_printf("in distance_and_hold_second: hold_second->content = %d\n", *(int *)((holder->hold_second)->content));
 			//ft_printf("in distance_and_hold_second: distance = %d\n", distance);
 			/* The following if-break is necessary because some sort of compiler
 			optimization that assigns hold_second in the last place just before
@@ -76,7 +76,7 @@ int	distance_and_hold_second(t_list **stack, t_hold *hold, int chunk_min, int ch
 		i = i->next;
 	}
 	/* debug */
-	ft_printf("in distance_and_hold_second: hold_second->content = %d\n", *(int *)((hold->hold_second)->content));
+	ft_printf("in distance_and_hold_second: hold_second->content = %d\n", *(int *)((holder->hold_second)->content));
 	ft_printf("in distance_and_hold_second: distance = %d\n", distance);
 	return (distance);
 }
@@ -85,24 +85,25 @@ int	compute_ra_and_hold(t_list **stack_a, int chunk_min, int chunk_max, t_list *
 {
 	int		ra_hold_first;
 	int		ra_hold_second;
-	t_hold	*holder;
+	t_hold	holder;
 
-	holder = NULL;
-	ra_hold_first = distance_and_hold_first(stack_a, holder, chunk_min, chunk_max);
-	ra_hold_second = distance_and_hold_second(stack_a, holder, chunk_min, chunk_max);
+	holder.hold_first = NULL;
+	holder.hold_second = NULL;
+	ra_hold_first = distance_and_hold_first(stack_a, &holder, chunk_min, chunk_max);
+	ra_hold_second = distance_and_hold_second(stack_a, &holder, chunk_min, chunk_max);
 	/* debug */
 	ft_printf("in compute_ra_and_hold: ra_hold_first = %d\n", ra_hold_first);
 	ft_printf("in compute_ra_and_hold: ra_hold_second = %d\n", ra_hold_second);
-	ft_printf("in compute_ra_and_hold: hold_first->content = %d\n", *(int *)((holder->hold_first)->content));
-	ft_printf("in compute_ra_and_hold: hold_second->content = %d\n", *(int *)((holder->hold_second)->content));
+	ft_printf("in compute_ra_and_hold: hold_first->content = %d\n", *(int *)((holder.hold_first)->content));
+	ft_printf("in compute_ra_and_hold: hold_second->content = %d\n", *(int *)((holder.hold_second)->content));
 	if (ra_hold_first < (ft_lstsize(*stack_a) - ra_hold_second))
 	{
-		hold = holder->hold_first;
+		hold = holder.hold_first;
 		return (ra_hold_first);
 	}
 	else
 	{
-		hold = holder->hold_second;
+		hold = holder.hold_second;
 		return (ra_hold_second);
 	}
 }
@@ -148,6 +149,7 @@ void	big_algorithm(t_list **stack_a, t_list **stack_b, \
 	int		chunk_size;
 	int		chunk_size_count;
 
+	/* implementar la logica usando assign_index */
 	chunk_min = smallest(stack_a);
 	amplitude = biggest(stack_a) - chunk_min + 1;
 	chunk_num = select_chunk_num(stack_size);
@@ -200,7 +202,6 @@ void	big_algorithm(t_list **stack_a, t_list **stack_b, \
 				}
 			}
 			pb(stack_b, stack_a, stack_o);
-			break ;
 		}
 		i++;
 	}
