@@ -6,23 +6,23 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/27 21:06:54 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/28 21:38:42 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_stack(t_list **stack)
+void	free_stack(t_list **stack, void (*del)(void *))
 {
-	ft_lstclear(stack, free);
+	ft_lstclear(stack, del);
 	free(stack);
 }
 
-void	free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o)
+void	free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o, void (*del)(void *))
 {
-	free_stack(stack_a);
-	free_stack(stack_b);
-	free_stack(stack_o);
+	free_stack(stack_a, del);
+	free_stack(stack_b, del);
+	free_stack(stack_o, free);
 }
 
 t_list	*return_second2last(t_list **stack)
@@ -99,10 +99,10 @@ void	set_value(t_content *content, int *value)
 	*(content->value) = *value;
 }
 
-void	free_content(t_content *content)
+void	free_content(void *content)
 {
-	free(content->index);
-	free(content->value);
+	free(((t_content *)content)->index);
+	free(((t_content *)content)->value);
 	free(content);
 }
 
@@ -135,22 +135,22 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 	{
 		if (i && j)
 		{
-			print_index((int *)(i->content));
+			print_index((t_content *)(i->content));
 			ft_printf("\t");
-			print_value((int *)(i->content));
+			print_value((t_content *)(i->content));
 			ft_printf("\t\t|\t");
-			print_index((int *)(j->content));
+			print_index((t_content *)(j->content));
 			ft_printf("\t");
-			print_value((int *)(j->content));
+			print_value((t_content *)(j->content));
 			ft_printf("\t\n");
 			i = i->next;
 			j = j->next;
 		}
 		else if (i && !j)
 		{
-			print_index((int *)(i->content));
+			print_index((t_content *)(i->content));
 			ft_printf("\t");
-			print_value((int *)(i->content));
+			print_value((t_content *)(i->content));
 			ft_printf("\t\t|\t");
 			ft_printf("\t");
 			ft_printf("\t\n");
@@ -160,13 +160,40 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 		{
 			ft_printf("\t");
 			ft_printf("\t\t|\t");
-			print_index((int *)(j->content));
+			print_index((t_content *)(j->content));
 			ft_printf("\t");
-			print_value((int *)(j->content));
+			print_value((t_content *)(j->content));
 			ft_printf("\t\n");
 			j = j->next;
 		}
 	}
+}
+
+t_list	*get_smallest(t_list **stack)
+{
+	t_list	*i;
+	t_list	*candidate;
+
+	i = *stack;
+	candidate = i;
+	i = i->next;
+	while (i)
+	{
+		if (get_value((t_content *)(i->content)) < get_value((t_content *)(candidate->content)))
+			candidate = i;
+		i = i->next;
+	}
+	return (candidate);
+}
+
+int	compare_values(t_list *node_a, t_list *node_b)
+{
+	return (get_value(node_a->content) - get_value(node_b->content));
+}
+
+int	compare_index(t_list *node_a, t_list *node_b)
+{
+	return (get_index(node_a->content) - get_index(node_b->content));
 }
 
 void	add_operation(t_list **stack_o, char *op_name)

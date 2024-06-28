@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/27 21:04:31 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/28 21:33:25 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	distance_and_hold_first(t_list **stack, t_hold *holder, int chunk_min, int c
 	ft_printf("in distance_and_hold_first: chunk_max = %d\n", chunk_max);
 	while (i)
 	{
-		if ((*(int *)i->content >= chunk_min) && (*(int *)i->content <= chunk_max))
+		if ((get_index((t_content *)(i->content)) >= chunk_min) && (get_index((t_content *)(i->content)) <= chunk_max))
 		{
 			holder->hold_first = i;
 			break ;
@@ -33,7 +33,8 @@ int	distance_and_hold_first(t_list **stack, t_hold *holder, int chunk_min, int c
 		i = i->next;
 	}
 	/* debug */
-	ft_printf("in distance_and_hold_first: hold_first->content = %d\n", *(int *)((holder->hold_first)->content));
+	ft_printf("in distance_and_hold_first: hold_first->content->index = %d\n", get_index((t_content *)((holder->hold_first)->content)));
+	ft_printf("in distance_and_hold_first: hold_first->content->value = %d\n", get_value((t_content *)((holder->hold_first)->content)));
 	ft_printf("in distance_and_hold_first: distance = %d\n", distance);
 	return (distance);
 }
@@ -55,7 +56,7 @@ int	distance_and_hold_second(t_list **stack, t_hold *holder, int chunk_min, int 
 	ft_printf("in distance_and_hold_second: stack size = %d\n", stack_size);
 	while (i)
 	{
-		if ((*(int *)i->content >= chunk_min) && (*(int *)i->content <= chunk_max))
+		if ((get_index((t_content *)(i->content)) >= chunk_min) && (get_index((t_content *)(i->content)) <= chunk_max))
 		{
 			holder->hold_second = i;
 			distance = count;
@@ -76,12 +77,13 @@ int	distance_and_hold_second(t_list **stack, t_hold *holder, int chunk_min, int 
 		i = i->next;
 	}
 	/* debug */
-	ft_printf("in distance_and_hold_second: hold_second->content = %d\n", *(int *)((holder->hold_second)->content));
+	ft_printf("in distance_and_hold_second: hold_first->content->index = %d\n", get_index((t_content *)((holder->hold_second)->content)));
+	ft_printf("in distance_and_hold_second: hold_first->content->value = %d\n", get_value((t_content *)((holder->hold_second)->content)));
 	ft_printf("in distance_and_hold_second: distance = %d\n", distance);
 	return (distance);
 }
 
-int	compute_ra_and_hold(t_list **stack_a, int chunk_min, int chunk_max, t_list *hold)
+int	compute_ra_and_hold(t_list **stack_a, int chunk_min_index, int chunk_max_index, t_list *hold)
 {
 	int		ra_hold_first;
 	int		ra_hold_second;
@@ -89,13 +91,13 @@ int	compute_ra_and_hold(t_list **stack_a, int chunk_min, int chunk_max, t_list *
 
 	holder.hold_first = NULL;
 	holder.hold_second = NULL;
-	ra_hold_first = distance_and_hold_first(stack_a, &holder, chunk_min, chunk_max);
-	ra_hold_second = distance_and_hold_second(stack_a, &holder, chunk_min, chunk_max);
+	ra_hold_first = distance_and_hold_first(stack_a, &holder, chunk_min_index, chunk_max_index);
+	ra_hold_second = distance_and_hold_second(stack_a, &holder, chunk_min_index, chunk_max_index);
 	/* debug */
 	ft_printf("in compute_ra_and_hold: ra_hold_first = %d\n", ra_hold_first);
-	ft_printf("in compute_ra_and_hold: ra_hold_second = %d\n", ra_hold_second);
-	ft_printf("in compute_ra_and_hold: hold_first->content = %d\n", *(int *)((holder.hold_first)->content));
-	ft_printf("in compute_ra_and_hold: hold_second->content = %d\n", *(int *)((holder.hold_second)->content));
+	ft_printf("in compute_ra_and_hold: rra_hold_second = %d\n", ra_hold_second);
+	ft_printf("in compute_ra_and_hold: hold_first->content->value = %d\n", get_value((t_content *)(holder.hold_first->content)));
+	ft_printf("in compute_ra_and_hold: hold_second->content->value = %d\n", get_value((t_content *)(holder.hold_second->content)));
 	if (ra_hold_first < (ft_lstsize(*stack_a) - ra_hold_second))
 	{
 		hold = holder.hold_first;
@@ -136,24 +138,30 @@ int	select_chunk_num(int stack_size)
 	return (chunk_num);
 }
 
-void	big_algorithm(t_list **stack_a, t_list **stack_b, \
+t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size)
 {
-	int		amplitude;
+	//int		amplitude;
 	int		chunk_num;
 	t_list	*hold;
 	int		r_count;
 	int		rr_count;
 	int		i;
-	int		chunk_min;
+	//int		chunk_min;
 	int		chunk_size;
 	int		chunk_size_count;
 
 	/* implementar la logica usando assign_index */
-	chunk_min = smallest(stack_a);
-	amplitude = biggest(stack_a) - chunk_min + 1;
+	if (assign_index(stack_a) == PS_MALLOC_FAIL)
+	{
+		free_stacks(stack_a, stack_b, stack_o, free);
+		return (PS_MALLOC_FAIL);
+	}
+	// chunk_min = smallest(stack_a);
+	// amplitude = biggest(stack_a) - chunk_min + 1;
 	chunk_num = select_chunk_num(stack_size);
-	chunk_size = amplitude / chunk_num;
+	//chunk_size = amplitude / chunk_num;
+	chunk_size = stack_size / chunk_num;
 	hold = NULL;
 	i = 0;
 	while (i < chunk_num)
@@ -166,7 +174,7 @@ void	big_algorithm(t_list **stack_a, t_list **stack_b, \
 			ft_printf("in big_algorithm: chunk_num = %d\n", chunk_num);
 			ft_printf("in big_algorithm: chunk_size = %d\n", chunk_size);
 			ft_printf("in big_algorithm: chunk_size_count = %d\n", chunk_size_count);
-			r_count = compute_ra_and_hold(stack_a, chunk_min + i * chunk_size, chunk_min + (i + 1) * chunk_size - 1, hold);
+			r_count = compute_ra_and_hold(stack_a, i * chunk_size, (i + 1) * chunk_size - 1, hold);
 			rr_count = ft_lstsize(*stack_a) - r_count;
 			if (r_count <= rr_count)
 			{
@@ -205,4 +213,5 @@ void	big_algorithm(t_list **stack_a, t_list **stack_b, \
 		}
 		i++;
 	}
+	return (PS_OK);
 }

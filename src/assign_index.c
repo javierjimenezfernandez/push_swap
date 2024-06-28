@@ -6,13 +6,13 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/27 21:06:42 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/28 21:20:29 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	add_index(t_list **stack)
+t_ps_error	add_index(t_list **stack)
 {
 	t_list		**new_stack;
 	t_list		*i;
@@ -20,42 +20,29 @@ void	add_index(t_list **stack)
 	t_content	*new_content;
 
 	new_stack = (t_list **)malloc(sizeof(t_list *));
-	/* ¿return PS_MALLOC_FAIL?*/
 	if (!new_stack)
-		return ;
+		return (PS_MALLOC_FAIL);
 	*new_stack = NULL;
 	i = *stack;
 	while (i)
 	{
-		new_content = (t_content **)malloc(sizeof(t_content *));
-		/* implement retroactive free to avoid leaks ¿return PS_MALLOC_FAIL?*/
-		if (!new_content)
+		new_content = (t_content *)malloc(sizeof(t_content));
+		if (init_content(new_content) == PS_MALLOC_FAIL)
 		{
-			return ;
+			free_stack(new_stack, free_content);
+			return (PS_MALLOC_FAIL);
 		}
-		new_content->index = (int *)malloc(sizeof(int));
-		/* implement retroactive free to avoid leaks ¿return PS_MALLOC_FAIL?*/
-		if (!(new_content->index))
-		{
-			return ;
-		}
-		new_content->value = (int *)malloc(sizeof(int));
-		/* implement retroactive free to avoid leaks ¿return PS_MALLOC_FAIL?*/
-		if (!(new_content->value))
-		{
-			return ;
-		}
-		*(new_content->index) = -1;
-		*(new_content->value) = *(int *)(i->content);
+		set_value(new_content, (int *)(i->content));
 		new_node = ft_lstnew(new_content);
 		ft_lstadd_back(new_stack, new_node);
 		i = i->next;
 	}
-	free_stack_w_index(stack);
+	free_stack(stack, free);
 	stack = new_stack;
+	return (PS_OK);
 }
 
-void	assign_index(t_list **stack)
+t_ps_error	assign_index(t_list **stack)
 {
 	t_list	*i;
 	t_list	*j;
@@ -63,36 +50,38 @@ void	assign_index(t_list **stack)
 	t_list	*candidate;
 	t_list	*prev_candidate;
 
-	add_index(stack);
+	/* ojo: hay que hacer un free stacks normal con free en el momento
+	que se vuelve de esta función */
+	if (add_index(stack) == PS_MALLOC_FAIL)
+		return (PS_MALLOC_FAIL);
 	index = 0;
-	i = *stack;
-	candidate = i;
-	i = i->next;
-	while (i)
-	{
-		if (get_value(i->content) < get_value(candidate->content))
-			candidate = i;
-		i = i->next;
-	}
-	set_index(candidate->content, index);
+	prev_candidate = get_smallest(stack);
+	set_index(prev_candidate->content, &index);
 	index++;
-	prev_candidate = candidate;
 	i = *stack;
-	i = i->next;
 	while (i)
 	{
 		j = i;
 		candidate = j;
+		/* Este if es para arreglar el caso de que el primer número es el más
+		pequeño. Si esto ocurriera, entonces a ese valor le sobreescribirá el
+		índice a 1 en vez de 0 así que los índices irán de 1 a n en vez de 0
+		a n-1 donde n es el tamaño del stack. La única posibilidad de entrar
+		en el if es en la primera vuelta, ya que candidate y prev_candidate
+		nunca pueden ser iguales dentro de este bucle */
+		if (compare_values(candidate, prev_candidate) == 0)
+			index--;
 		while (j)
 		{
-			if ((get_value(prev_candidate->content) < get_value(j->content)) \
-				&& (get_value(j->content) < get_value(candidate->content)));
+			if ((compare_values(j, prev_candidate) > 0) \
+				&& (compare_values(j, candidate) < 0))
 				candidate = j;
 			j = j->next;
 		}
-		set_index(candidate->content, index);
+		set_index(candidate->content, &index);
 		index++;
 		prev_candidate = candidate;
 		i = i->next;
 	}
+	return (PS_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/27 21:10:02 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/06/28 21:10:54 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@
 # include "ft_printf.h"
 
 /* push_swap magic numbers */
-# define PS_OK		0
-# define PS_ERROR	1
-# define MAX_INT	"2147483647"
-# define MIN_INT	"-2147483648"
+# define PS_OK			0
+# define PS_ERROR		1
+# define PS_MALLOC_FAIL	2
+# define MAX_INT		"2147483647"
+# define MIN_INT		"-2147483648"
 
 /* push swap opeation names */
 # define SA		"sa"
@@ -77,8 +78,8 @@ typedef struct s_psnode
 int			main(int argc, char **argv);
 
 /* stack utils */
-void		free_stack(t_list **stack);
-void		free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+void		free_stack(t_list **stack, void (*del)(void *));
+void		free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o, void (*del)(void *));
 t_list		*return_second2last(t_list **stack);
 void		print_stack(t_list **stack);
 void		print_stacks(t_list **stack_a, t_list **stack_b);
@@ -86,12 +87,15 @@ int			get_index(t_content *content);
 int			get_value(t_content *content);
 void		set_index(t_content *content, int *index);
 void		set_value(t_content *content, int *value);
-void		free_content(t_content *content);
+void		free_content(void *content);
 void		free_stack_w_index(t_list **stack);
 void		print_index(t_content *content);
 void		print_value(t_content *content);
 void		print_stacks_w_index(t_list **stack_a, t_list **stack_b);
 void		add_operation(t_list **stack_o, char *op_name);
+t_list		*get_smallest(t_list **stack);
+int			compare_values(t_list *node_a, t_list *node_b);
+int			compare_index(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
 int			smallest(t_list **stack);
 int			distance_to_smallest(t_list **stack);
@@ -141,9 +145,9 @@ void		rrb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 void		rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* compute operations */
-void		select_algorithm(t_list **stack_a, t_list **stack_b, \
+t_ps_error	select_algorithm(t_list **stack_a, t_list **stack_b, \
 								t_list **stack_o, int stack_size);
-void		compute_operations(t_list **stack_a, t_list **stack_b, \
+t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 								t_list **stack_o, int stack_size);
 
 /* small algorithm */
@@ -164,11 +168,15 @@ void		middle_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* big algorithm */
-void		big_algorithm(t_list **stack_a, t_list **stack_b, \
+t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* assign index */
-void		add_index(t_list **stack);
-void		assign_index(t_list **stack);
+t_ps_error	add_index(t_list **stack);
+t_ps_error	assign_index(t_list **stack);
+
+/* init */
+t_ps_error	stacks_init(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+t_ps_error	init_content(t_content *new_content);
 
 #endif
