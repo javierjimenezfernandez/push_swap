@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/28 19:47:41 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:14:31 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int main(int argc, char **argv)
 		if ((argc == 2 && argv[1][0] == '\0') ||
 			split_argv2list(argc, argv, stack_a) || input_control(stack_a))
 		{
+			free_stacks(stack_a, stack_b, stack_o, free);
 			ft_putstr_fd("Error\n", 2);
 			return (PS_ERROR);
 		}
@@ -47,7 +48,7 @@ int main(int argc, char **argv)
 		/* debug */
 		ft_printf("---------------------------------------------\n\n");
 		ft_printf("Result: \n");
-		print_stacks(stack_a, stack_b);
+		print_stacks_w_index(stack_a, stack_b);
 		ft_printf("\n");
 		ft_printf("%d operations: \n", ft_lstsize(*stack_o));
 

@@ -6,13 +6,13 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/28 21:20:29 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:42:44 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ps_error	add_index(t_list **stack)
+t_ps_error	add_index(t_list ***stack)
 {
 	t_list		**new_stack;
 	t_list		*i;
@@ -23,7 +23,7 @@ t_ps_error	add_index(t_list **stack)
 	if (!new_stack)
 		return (PS_MALLOC_FAIL);
 	*new_stack = NULL;
-	i = *stack;
+	i = *(*stack);
 	while (i)
 	{
 		new_content = (t_content *)malloc(sizeof(t_content));
@@ -37,8 +37,10 @@ t_ps_error	add_index(t_list **stack)
 		ft_lstadd_back(new_stack, new_node);
 		i = i->next;
 	}
-	free_stack(stack, free);
-	stack = new_stack;
+	free_stack(*stack, free);
+	*stack = new_stack;
+	/* debug */
+	//print_stack_w_index(*stack);
 	return (PS_OK);
 }
 
@@ -52,25 +54,40 @@ t_ps_error	assign_index(t_list **stack)
 
 	/* ojo: hay que hacer un free stacks normal con free en el momento
 	que se vuelve de esta función */
-	if (add_index(stack) == PS_MALLOC_FAIL)
+	if (add_index(&stack) == PS_MALLOC_FAIL)
 		return (PS_MALLOC_FAIL);
 	index = 0;
+	prev_candidate = NULL;
+	/* debug */
+	print_stack_w_index(stack);
 	prev_candidate = get_smallest(stack);
+	/* debug */
+	ft_printf("in assign_index: prev_candidate->content = %d\n", get_value((t_content *)(prev_candidate->content)));
 	set_index(prev_candidate->content, &index);
+	/* debug */
+	ft_printf("in assign_index: prev_candidate->index = %d\n", get_index((t_content *)(prev_candidate->content)));
+	print_stack_w_index(stack);
+	candidate = get_biggest(stack);
 	index++;
 	i = *stack;
+	candidate = i;
 	while (i)
 	{
-		j = i;
-		candidate = j;
+		j = *stack;
+		/* debería encontrar la forma de optimizar esto con una variable en vez
+		de llamar todo el tiempo a esta función?*/
+		candidate = get_biggest(stack);
 		/* Este if es para arreglar el caso de que el primer número es el más
 		pequeño. Si esto ocurriera, entonces a ese valor le sobreescribirá el
 		índice a 1 en vez de 0 así que los índices irán de 1 a n en vez de 0
 		a n-1 donde n es el tamaño del stack. La única posibilidad de entrar
 		en el if es en la primera vuelta, ya que candidate y prev_candidate
 		nunca pueden ser iguales dentro de este bucle */
-		if (compare_values(candidate, prev_candidate) == 0)
+		/*if (compare_values(candidate, prev_candidate) == 0)
+		{
+			ft_printf("in assign_index: hi\n");
 			index--;
+		}*/
 		while (j)
 		{
 			if ((compare_values(j, prev_candidate) > 0) \
@@ -78,10 +95,16 @@ t_ps_error	assign_index(t_list **stack)
 				candidate = j;
 			j = j->next;
 		}
-		set_index(candidate->content, &index);
-		index++;
-		prev_candidate = candidate;
+		if (get_index((t_content *)(candidate->content)) == -1)
+		{
+			set_index((t_content *)(candidate->content), &index);
+			/* debug */
+			ft_printf("in assign_index: set index %d for %d\n", get_index((t_content *)(candidate->content)), get_value((t_content *)(candidate->content)));
+			index++;
+			prev_candidate = candidate;
+		}
 		i = i->next;
 	}
+	print_stack_w_index(stack);
 	return (PS_OK);
 }

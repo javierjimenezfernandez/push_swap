@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/28 21:38:42 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/01 21:39:24 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,23 @@ void	print_value(t_content *content)
 	ft_printf("%d", *(int *)(content->value));
 }
 
+void	print_stack_w_index(t_list **stack_a)
+{
+	t_list	*i;
+
+	i = *stack_a;
+	ft_printf("\tstack_a\n");
+	ft_printf("index\tvalue\n");
+	while (i)
+	{
+		print_index((t_content *)(i->content));
+		ft_printf("\t");
+		print_value((t_content *)(i->content));
+		ft_printf("\n");
+		i = i->next;
+	}
+}
+
 void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 {
 	t_list	*i;
@@ -175,25 +192,56 @@ t_list	*get_smallest(t_list **stack)
 	t_list	*candidate;
 
 	i = *stack;
-	candidate = i;
+	candidate = *stack;
+	ft_printf("in get_smallest: hi1\n");
+	ft_printf("in get_smallest: content = %p\n", (i->content));
+	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
 	i = i->next;
+	ft_printf("in get_smallest: hi2\n");
+	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
 	while (i)
 	{
-		if (get_value((t_content *)(i->content)) < get_value((t_content *)(candidate->content)))
+		if (get_value((t_content *)(i->content)) < get_value((t_content *)((candidate)->content)))
 			candidate = i;
 		i = i->next;
 	}
+	ft_printf("in get_smallest: hi3\n");
+	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
+	return (candidate);
+}
+
+t_list	*get_biggest(t_list **stack)
+{
+	t_list	*i;
+	t_list	*candidate;
+
+	i = *stack;
+	candidate = *stack;
+	ft_printf("in get_bigest: hi1\n");
+	ft_printf("in get_bigest: content = %p\n", (i->content));
+	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
+	i = i->next;
+	ft_printf("in get_bigest: hi2\n");
+	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
+	while (i)
+	{
+		if (get_value((t_content *)(i->content)) > get_value((t_content *)((candidate)->content)))
+			candidate = i;
+		i = i->next;
+	}
+	ft_printf("in get_bigest: hi3\n");
+	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
 	return (candidate);
 }
 
 int	compare_values(t_list *node_a, t_list *node_b)
 {
-	return (get_value(node_a->content) - get_value(node_b->content));
+	return (get_value((t_content *)(node_a->content)) - get_value((t_content *)(node_b->content)));
 }
 
 int	compare_index(t_list *node_a, t_list *node_b)
 {
-	return (get_index(node_a->content) - get_index(node_b->content));
+	return (get_index((t_content *)(node_a->content)) - get_index((t_content *)(node_b->content)));
 }
 
 void	add_operation(t_list **stack_o, char *op_name)
