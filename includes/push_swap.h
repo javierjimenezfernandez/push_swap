@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/01 21:39:20 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:11:39 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void		free_content(void *content);
 void		free_stack_w_index(t_list **stack);
 void		print_index(t_content *content);
 void		print_value(t_content *content);
-void		print_stack_w_index(t_list **stack_a);
+void		print_stack_w_index(t_list **stack);
 void		print_stacks_w_index(t_list **stack_a, t_list **stack_b);
 void		add_operation(t_list **stack_o, char *op_name);
 t_list		*get_smallest(t_list **stack);
@@ -174,7 +174,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* assign index */
-t_ps_error	add_index(t_list ***stack);
+t_ps_error	add_index(t_list **stack);
 t_ps_error	assign_index(t_list **stack);
 
 /* init */

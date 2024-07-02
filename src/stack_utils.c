@@ -122,12 +122,12 @@ void	print_value(t_content *content)
 	ft_printf("%d", *(int *)(content->value));
 }
 
-void	print_stack_w_index(t_list **stack_a)
+void	print_stack_w_index(t_list **stack)
 {
 	t_list	*i;
 
-	i = *stack_a;
-	ft_printf("\tstack_a\n");
+	i = *stack;
+	ft_printf("\tstack\n");
 	ft_printf("index\tvalue\n");
 	while (i)
 	{
