@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/06/28 21:21:46 by javjimen         ###   ########.fr        #
+#    Updated: 2024/07/02 20:20:49 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ ARFLAGS		= -r -c -s
 SANITIZE	= $(CFLAGS) -fsanitize=address
 
 # Rule name protection
-.PHONY:		all libft clean fclean re
+.PHONY:		all libft clean fclean re sanitize
 
 all: 		$(NAME)
 
