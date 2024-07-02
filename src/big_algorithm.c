@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/28 21:33:25 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:44:53 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int	distance_and_hold_second(t_list **stack, t_hold *holder, int chunk_min, int 
 		i = i->next;
 	}
 	/* debug */
-	ft_printf("in distance_and_hold_second: hold_first->content->index = %d\n", get_index((t_content *)((holder->hold_second)->content)));
-	ft_printf("in distance_and_hold_second: hold_first->content->value = %d\n", get_value((t_content *)((holder->hold_second)->content)));
+	ft_printf("in distance_and_hold_second: hold_second->content->index = %d\n", get_index((t_content *)((holder->hold_second)->content)));
+	ft_printf("in distance_and_hold_second: hold_second->content->value = %d\n", get_value((t_content *)((holder->hold_second)->content)));
 	ft_printf("in distance_and_hold_second: distance = %d\n", distance);
 	return (distance);
 }
@@ -96,21 +96,23 @@ int	compute_ra_and_hold(t_list **stack_a, int chunk_min_index, int chunk_max_ind
 
 	holder.hold_first = NULL;
 	holder.hold_second = NULL;
+	/* debug */
+	print_stack_w_index(stack_a);
 	ra_hold_first = distance_and_hold_first(stack_a, &holder, chunk_min_index, chunk_max_index);
 	ra_hold_second = distance_and_hold_second(stack_a, &holder, chunk_min_index, chunk_max_index);
 	/* debug */
-	ft_printf("in compute_ra_and_hold: ra_hold_first = %d\n", ra_hold_first);
-	ft_printf("in compute_ra_and_hold: rra_hold_second = %d\n", ra_hold_second);
-	ft_printf("in compute_ra_and_hold: hold_first->content->value = %d\n", get_value((t_content *)(holder.hold_first->content)));
-	ft_printf("in compute_ra_and_hold: hold_second->content->value = %d\n", get_value((t_content *)(holder.hold_second->content)));
+	ft_printf("in compute_ra_and_hold: { ra_hold_first = %d,\t", ra_hold_first);
+	ft_printf("hold_first->content->\t(index = %d, value = %d) }\n", get_index((t_content *)(holder.hold_first->content)), get_value((t_content *)(holder.hold_first->content)));
+	ft_printf("in compute_ra_and_hold: { ra_hold_second = %d,\t", ra_hold_second);
+	ft_printf("hold_second->content->\t(index = %d, value = %d) }\n", get_index((t_content *)(holder.hold_second->content)), get_value((t_content *)(holder.hold_second->content)));
 	if (ra_hold_first < (ft_lstsize(*stack_a) - ra_hold_second))
 	{
-		hold = holder.hold_first;
+		*hold = *(holder.hold_first);
 		return (ra_hold_first);
 	}
 	else
 	{
-		hold = holder.hold_second;
+		*hold = *(holder.hold_second);
 		return (ra_hold_second);
 	}
 }
@@ -148,7 +150,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 {
 	//int		amplitude;
 	int		chunk_num;
-	t_list	*hold;
+	t_list	hold;
 	int		r_count;
 	int		rr_count;
 	int		i;
@@ -162,12 +164,13 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 		free_stacks(stack_a, stack_b, stack_o, free);
 		return (PS_MALLOC_FAIL);
 	}
+	/* debug */
+	//print_stack_w_index(stack_a);
 	// chunk_min = smallest(stack_a);
 	// amplitude = biggest(stack_a) - chunk_min + 1;
 	chunk_num = select_chunk_num(stack_size);
 	//chunk_size = amplitude / chunk_num;
 	chunk_size = stack_size / chunk_num;
-	hold = NULL;
 	i = 0;
 	while (i < chunk_num)
 	{
@@ -177,10 +180,15 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 			/* debug */
 			ft_printf("in big_algorithm: i = %d\n", i);
 			ft_printf("in big_algorithm: chunk_num = %d\n", chunk_num);
+			ft_printf("in big_algorithm: stack_size = %d\n", stack_size);
 			ft_printf("in big_algorithm: chunk_size = %d\n", chunk_size);
 			ft_printf("in big_algorithm: chunk_size_count = %d\n", chunk_size_count);
-			r_count = compute_ra_and_hold(stack_a, i * chunk_size, (i + 1) * chunk_size - 1, hold);
+			//print_stack_w_index(stack_a);
+			r_count = compute_ra_and_hold(stack_a, i * chunk_size, (i + 1) * chunk_size - 1, &hold);
 			rr_count = ft_lstsize(*stack_a) - r_count;
+			/* debug */
+			ft_printf("in big_algorithm: hold = %p\n", hold);
+				ft_printf("in big_algorithm: hold->content-> (index = %d, value = %d)\n", get_index((t_content *)(hold.content)), get_value((t_content *)(hold.content)));
 			if (r_count <= rr_count)
 			{
 				while (r_count--)
@@ -195,10 +203,13 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 			}
 			if (ft_lstsize(*stack_b))
 			{
+				/* debug */
 				ft_printf("in big_algorithm: hold = %p\n", hold);
-				ft_printf("in big_algorithm: hold->content = %d\n", *(int *)(hold->content));
-
-				r_count = compute_r_distance(stack_b, hold);
+				ft_printf("in big_algorithm: hold->content-> (index = %d, value = %d)\n", get_index((t_content *)(hold.content)), get_value((t_content *)(hold.content)));
+				/* next function doesn't work properly because is meant for an "int *content"
+				it's time to migrate small and middle algorithm functions for the new content type*/
+				r_count = compute_r_distance(stack_b, &hold);
+				/* debug */
 				ft_printf("in big_algorithm: hello there\n");
 				rr_count = ft_lstsize(*stack_b) - r_count;
 				if (r_count <= rr_count)

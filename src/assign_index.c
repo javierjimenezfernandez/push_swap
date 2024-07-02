@@ -6,38 +6,38 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/01 21:42:44 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:21:13 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ps_error	add_index(t_list ***stack)
+t_ps_error	add_index(t_list **stack)
 {
-	t_list		**new_stack;
+	t_list		*new_stack;
 	t_list		*i;
 	t_list		*new_node;
 	t_content	*new_content;
 
-	new_stack = (t_list **)malloc(sizeof(t_list *));
+	new_stack = (t_list *)malloc(sizeof(t_list));
 	if (!new_stack)
 		return (PS_MALLOC_FAIL);
-	*new_stack = NULL;
-	i = *(*stack);
+	new_stack = NULL;
+	i = *stack;
 	while (i)
 	{
 		new_content = (t_content *)malloc(sizeof(t_content));
 		if (init_content(new_content) == PS_MALLOC_FAIL)
 		{
-			free_stack(new_stack, free_content);
+			free_stack(&new_stack, free_content);
 			return (PS_MALLOC_FAIL);
 		}
 		set_value(new_content, (int *)(i->content));
 		new_node = ft_lstnew(new_content);
-		ft_lstadd_back(new_stack, new_node);
+		ft_lstadd_back(&new_stack, new_node);
 		i = i->next;
 	}
-	free_stack(*stack, free);
+	free_stack(stack, free);
 	*stack = new_stack;
 	/* debug */
 	//print_stack_w_index(*stack);
@@ -54,7 +54,7 @@ t_ps_error	assign_index(t_list **stack)
 
 	/* ojo: hay que hacer un free stacks normal con free en el momento
 	que se vuelve de esta función */
-	if (add_index(&stack) == PS_MALLOC_FAIL)
+	if (add_index(stack) == PS_MALLOC_FAIL)
 		return (PS_MALLOC_FAIL);
 	index = 0;
 	prev_candidate = NULL;

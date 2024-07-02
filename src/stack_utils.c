@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/01 21:39:24 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:25:23 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_stack(t_list **stack, void (*del)(void *))
 {
 	ft_lstclear(stack, del);
-	free(stack);
+	//free(stack);
 }
 
 void	free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o, void (*del)(void *))
