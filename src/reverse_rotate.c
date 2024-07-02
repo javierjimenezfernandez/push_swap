@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:55:05 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/14 15:05:07 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:17:29 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ void	rra(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(RRA);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	//print_stacks(stack_a, stack_b);
+	print_stacks_w_index(stack_a, stack_b);
 }
 
 //void	rrb(t_list **stack_b, t_list **stack_o)
@@ -50,7 +51,8 @@ void	rrb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(RRB);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	//print_stacks(stack_a, stack_b);
+	print_stacks_w_index(stack_a, stack_b);
 }
 
 void	rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o)
@@ -62,5 +64,6 @@ void	rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(RRR);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	//print_stacks(stack_a, stack_b);
+	print_stacks_w_index(stack_a, stack_b);
 }
