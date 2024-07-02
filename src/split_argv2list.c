@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:54:24 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/01 18:11:37 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/02 19:35:07 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_ps_error	split_argv2list(int argc, char **argv, t_list **stack_a)
 				return (PS_ERROR);
 			}
 			/* debug */
-			ft_printf("in split_argv2list: hi\n");
+			//ft_printf("in split_argv2list: hi\n");
 			ft_lstadd_back(stack_a, new_node);
 			ft_printf("in split_argv2list: succesfully added new_node for \"%s\" to the list\n", new_node->content);
 			j++;

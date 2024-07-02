@@ -59,14 +59,14 @@ t_ps_error	assign_index(t_list **stack)
 	index = 0;
 	prev_candidate = NULL;
 	/* debug */
-	print_stack_w_index(stack);
+	//print_stack_w_index(stack);
 	prev_candidate = get_smallest(stack);
 	/* debug */
 	ft_printf("in assign_index: prev_candidate->content = %d\n", get_value((t_content *)(prev_candidate->content)));
 	set_index(prev_candidate->content, &index);
 	/* debug */
 	ft_printf("in assign_index: prev_candidate->index = %d\n", get_index((t_content *)(prev_candidate->content)));
-	print_stack_w_index(stack);
+	//print_stack_w_index(stack);
 	candidate = get_biggest(stack);
 	index++;
 	i = *stack;
@@ -105,6 +105,6 @@ t_ps_error	assign_index(t_list **stack)
 		}
 		i = i->next;
 	}
-	print_stack_w_index(stack);
+	//print_stack_w_index(stack);
 	return (PS_OK);
 }

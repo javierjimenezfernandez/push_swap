@@ -193,20 +193,23 @@ t_list	*get_smallest(t_list **stack)
 
 	i = *stack;
 	candidate = *stack;
-	ft_printf("in get_smallest: hi1\n");
-	ft_printf("in get_smallest: content = %p\n", (i->content));
-	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
+	/* debug */
+	//ft_printf("in get_smallest: hi1\n");
+	//ft_printf("in get_smallest: content = %p\n", (i->content));
+	//ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
 	i = i->next;
-	ft_printf("in get_smallest: hi2\n");
-	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
+	/* debug */
+	//ft_printf("in get_smallest: hi2\n");
+	//ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)(i->content)));
 	while (i)
 	{
 		if (get_value((t_content *)(i->content)) < get_value((t_content *)((candidate)->content)))
 			candidate = i;
 		i = i->next;
 	}
-	ft_printf("in get_smallest: hi3\n");
-	ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
+	/* debug */
+	//ft_printf("in get_smallest: hi3\n");
+	//ft_printf("in get_smallest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
 	return (candidate);
 }
 
@@ -217,20 +220,23 @@ t_list	*get_biggest(t_list **stack)
 
 	i = *stack;
 	candidate = *stack;
-	ft_printf("in get_bigest: hi1\n");
-	ft_printf("in get_bigest: content = %p\n", (i->content));
-	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
+	/* debug */
+	//ft_printf("in get_bigest: hi1\n");
+	//ft_printf("in get_bigest: content = %p\n", (i->content));
+	//ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
 	i = i->next;
-	ft_printf("in get_bigest: hi2\n");
-	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
+	/* debug */
+	//ft_printf("in get_bigest: hi2\n");
+	//ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)(i->content)));
 	while (i)
 	{
 		if (get_value((t_content *)(i->content)) > get_value((t_content *)((candidate)->content)))
 			candidate = i;
 		i = i->next;
 	}
-	ft_printf("in get_bigest: hi3\n");
-	ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
+	/* debug */
+	//ft_printf("in get_bigest: hi3\n");
+	//ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
 	return (candidate);
 }
 

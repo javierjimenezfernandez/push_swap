@@ -22,17 +22,22 @@ int	distance_and_hold_first(t_list **stack, t_hold *holder, int chunk_min, int c
 	/* debug */
 	ft_printf("in distance_and_hold_first: chunk_min = %d\n", chunk_min);
 	ft_printf("in distance_and_hold_first: chunk_max = %d\n", chunk_max);
+	//print_stack_w_index(stack);
 	while (i)
 	{
+		//ft_printf("in distance_and_hold_first: hi1\n");
 		if ((get_index((t_content *)(i->content)) >= chunk_min) && (get_index((t_content *)(i->content)) <= chunk_max))
 		{
+			//ft_printf("in distance_and_hold_first: hi2\n");
 			holder->hold_first = i;
 			break ;
 		}
+		//ft_printf("in distance_and_hold_first: hi3\n");
 		distance++;
 		i = i->next;
 	}
 	/* debug */
+	//ft_printf("in distance_and_hold_first: hi4\n");
 	ft_printf("in distance_and_hold_first: hold_first->content->index = %d\n", get_index((t_content *)((holder->hold_first)->content)));
 	ft_printf("in distance_and_hold_first: hold_first->content->value = %d\n", get_value((t_content *)((holder->hold_first)->content)));
 	ft_printf("in distance_and_hold_first: distance = %d\n", distance);
