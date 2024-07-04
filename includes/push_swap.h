@@ -128,7 +128,7 @@ void		ss(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 /* push */
 void		push(t_list	**dst_stack, t_list **src_stack);
 void		pa(t_list **stack_a, t_list **stack_b, t_list **stack_o);
-void		pb(t_list **stack_b, t_list **stack_a, t_list **stack_o);
+void		pb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* rotate */
 void		rotate(t_list **stack);

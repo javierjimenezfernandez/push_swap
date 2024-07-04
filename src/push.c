@@ -39,7 +39,7 @@ void	pa(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	print_stacks_w_index(stack_a, stack_b);
 }
 
-void	pb(t_list **stack_b, t_list **stack_a, t_list **stack_o)
+void	pb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	push(stack_b, stack_a);
 	add_operation(stack_o, PB);

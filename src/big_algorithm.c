@@ -225,7 +225,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 						//rrb(stack_b, stack_o);
 				}
 			}
-			pb(stack_b, stack_a, stack_o);
+			pb(stack_a, stack_b, stack_o);
 		}
 		i++;
 	}
