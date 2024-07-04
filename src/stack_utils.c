@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/02 20:25:23 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:03:06 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,54 @@ t_list	*get_biggest(t_list **stack)
 	//ft_printf("in get_bigest: hi3\n");
 	//ft_printf("in get_bigest: content->value = %d\n", get_value((t_content *)((candidate)->content)));
 	return (candidate);
+}
+
+int	r_distance_to_node(t_list **stack, t_list *node)
+{
+	int		r_count;
+	t_list	*i;
+
+	r_count = 0;
+	i = *stack;
+	while (i)
+	{
+		if (get_value((t_content *)(i->content)) == get_value((t_content *)(node->content)))
+			break ;
+		r_count++;
+		i = i->next;
+	}
+	return (r_count);
+}
+
+int	compute_r_before_push(t_list **stack, t_list *node)
+{
+	int		r_count;
+	t_list	*i;
+
+	i = get_biggest(stack);
+	r_count = r_distance_to_node(stack, i);
+	while (i)
+	{
+		if (get_value((t_content *)(i->content)) < get_value((t_content *)(node->content)))
+			return (r_count);
+		r_count++;
+		i = i->next;
+	}
+	r_count = 0;
+	i = *stack;
+	while (i)
+	{
+		if (get_value((t_content *)(i->content)) < get_value((t_content *)(node->content)))
+			break ;
+		r_count++;
+		i = i->next;
+	}
+	if (r_count == ft_lstsize(*stack))
+	{
+		if (r_count > r_distance_to_node(stack, get_biggest(stack)))
+			r_count = r_distance_to_node(stack, get_biggest(stack));
+	}
+	return (r_count);
 }
 
 int	compare_values(t_list *node_a, t_list *node_b)

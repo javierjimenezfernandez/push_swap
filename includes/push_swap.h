@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/02 19:11:39 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/04 21:06:12 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void		print_stacks_w_index(t_list **stack_a, t_list **stack_b);
 void		add_operation(t_list **stack_o, char *op_name);
 t_list		*get_smallest(t_list **stack);
 t_list		*get_biggest(t_list **stack);
+int			r_distance_to_node(t_list **stack, t_list *node);
+int			compute_r_before_push(t_list **stack, t_list *node);
 int			compare_values(t_list *node_a, t_list *node_b);
 int			compare_index(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
