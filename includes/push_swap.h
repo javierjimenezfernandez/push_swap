@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/04 21:06:12 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/10 19:47:44 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef int	t_ps_error;
 typedef struct s_content
 {
 	int	*index;
+	int	*ra_cost;
 	int	*value;
 }				t_content;
 typedef struct s_hold
