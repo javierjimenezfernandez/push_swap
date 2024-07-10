@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/04 21:00:57 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:49:17 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,12 @@ int	distance_and_hold_second(t_list **stack, t_hold *holder, int chunk_min, int 
 	return (distance);
 }
 
-int	compute_ra_and_hold(t_list **stack_a, int chunk_min_index, int chunk_max_index, t_list *hold)
+int	compute_ra_and_hold(t_list **stack_a, t_list **stack_b, int chunk_min_index, int chunk_max_index, t_list *hold)
 {
 	int		ra_hold_first;
 	int		ra_hold_second;
+	int		rb_hold_first;
+	int		rb_hold_second;
 	t_hold	holder;
 
 	holder.hold_first = NULL;
@@ -100,10 +102,12 @@ int	compute_ra_and_hold(t_list **stack_a, int chunk_min_index, int chunk_max_ind
 	print_stack_w_index(stack_a);
 	ra_hold_first = distance_and_hold_first(stack_a, &holder, chunk_min_index, chunk_max_index);
 	ra_hold_second = distance_and_hold_second(stack_a, &holder, chunk_min_index, chunk_max_index);
+	rb_hold_first = compute_r_before_push(stack_b, holder.hold_first);
+	rb_hold_second = compute_r_before_push(stack_b, holder.hold_second);
 	/* debug */
-	ft_printf("in compute_ra_and_hold: { ra_hold_first = %d,\t", ra_hold_first);
+	ft_printf("in compute_ra_and_hold: { ra_hold_first = %d, rb_hold_first = %d,\t", ra_hold_first, rb_hold_first);
 	ft_printf("hold_first->content->\t(index = %d, value = %d) }\n", get_index((t_content *)(holder.hold_first->content)), get_value((t_content *)(holder.hold_first->content)));
-	ft_printf("in compute_ra_and_hold: { ra_hold_second = %d,\t", ra_hold_second);
+	ft_printf("in compute_ra_and_hold: { ra_hold_second = %d, rb_hold_second = %d,\t", ra_hold_second, rb_hold_second);
 	ft_printf("hold_second->content->\t(index = %d, value = %d) }\n", get_index((t_content *)(holder.hold_second->content)), get_value((t_content *)(holder.hold_second->content)));
 	if (ra_hold_first < (ft_lstsize(*stack_a) - ra_hold_second))
 	{
@@ -224,7 +228,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 			ft_printf("in big_algorithm: chunk_size_rem = %d\n", chunk_size_rem);
 			ft_printf("in big_algorithm: chunk_size_count = %d\n", chunk_size_count);
 			//print_stack_w_index(stack_a);
-			r_count = compute_ra_and_hold(stack_a, i * chunk_size + chunk_size_rem * first_chunk_flag, (i + 1) * chunk_size + chunk_size_rem - 1, &hold);
+			r_count = compute_ra_and_hold(stack_a, stack_b, i * chunk_size + chunk_size_rem * first_chunk_flag, (i + 1) * chunk_size + chunk_size_rem - 1, &hold);
 			rr_count = ft_lstsize(*stack_a) - r_count;
 			/* debug */
 			ft_printf("in big_algorithm: hold = %p\n", hold);
