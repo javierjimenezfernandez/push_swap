@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:54:17 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/14 15:03:01 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:28:20 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	sa(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(SA);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }
 
 //void	sb(t_list **stack_b, t_list **stack_o)
@@ -50,7 +53,10 @@ void	sb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(SB);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }
 
 void	ss(t_list **stack_a, t_list **stack_b, t_list **stack_o)
@@ -62,5 +68,8 @@ void	ss(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	ft_printf("-> ");
 	ft_printf(SS);
 	ft_printf("\n");
-	print_stacks(stack_a, stack_b);
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }

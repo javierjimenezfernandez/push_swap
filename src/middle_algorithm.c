@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:05 by javjimen          #+#    #+#             */
-/*   Updated: 2024/06/26 20:03:01 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:22:27 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void	middle_algorithm(t_list **stack_a, t_list **stack_b, \
 
 	pb_count = stack_size - 3;
 	while (pb_count--)
-		pb(stack_b, stack_a, stack_o);
+		pb(stack_a, stack_b, stack_o);
 	//small_algorithm(stack_a, stack_o, ft_lstsize(*stack_a));
 	small_algorithm(stack_a, stack_b, stack_o, ft_lstsize(*stack_a));
 	push_back_numbers(stack_a, stack_b, stack_o);

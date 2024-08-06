@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/06/26 21:20:30 by javjimen         ###   ########.fr        #
+#    Updated: 2024/07/02 20:20:49 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,9 @@ SRC			= $(addprefix $(SRC_DIR), main.c \
 									  compute_operations.c \
 									  small_algorithm.c \
 									  middle_algorithm.c \
-									  big_algorithm.c)
+									  big_algorithm.c \
+									  assign_index.c \
+									  init.c)
 
 # List of object files
 OBJ_DIR		= obj/
@@ -52,7 +54,7 @@ ARFLAGS		= -r -c -s
 SANITIZE	= $(CFLAGS) -fsanitize=address
 
 # Rule name protection
-.PHONY:		all libft clean fclean re
+.PHONY:		all libft clean fclean re sanitize
 
 all: 		$(NAME)
 
