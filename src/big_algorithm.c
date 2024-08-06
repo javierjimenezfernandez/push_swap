@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 20:49:17 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/06 21:15:10 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,14 @@ int	compute_ra_and_hold(t_list **stack_a, t_list **stack_b, int chunk_min_index,
 	}
 }
 
-int	select_chunk_num(int stack_size)
+int	compute_chunk_quantity(int stack_size)
 {
 	int	chunk_num;
 
-	chunk_num = 2;
+	chunk_num = (ft_sqrt(stack_size - 1) / 2) + 1;
+	if (chunk_num % 2 != 0)
+		chunk_num--;
+	/*chunk_num = 2;
 	if (stack_size > STACK_SIZE_1)
 		chunk_num++;
 	if (stack_size > STACK_SIZE_2)
@@ -145,7 +148,7 @@ int	select_chunk_num(int stack_size)
 	if (stack_size > STACK_SIZE_9)
 		chunk_num++;
 	if (stack_size > STACK_SIZE_10)
-		chunk_num++;
+		chunk_num++;*/
 	return (chunk_num);
 }
 
@@ -178,104 +181,166 @@ void	pa_all(t_list **stack_a, t_list **stack_b, \
 		pa(stack_a, stack_b, stack_o);
 }
 
+int	is_in_chunk(t_list	*node, int chunk_min_index, int chunk_max_index)
+{
+	if (compare_index_value(node, chunk_min_index) >= 0 && \
+		compare_index_value(node, chunk_max_index) <= 0)
+		return (1);
+	else
+		return (0);
+}
+
+void	assign_cost_by_chunk(t_list **stack_a, int chunk_min_index, \
+								int chunk_max_index, int rb_count)
+{
+	t_list	*i;
+	int		ra_count;
+	int		rra_count;
+	int		cost;
+
+	i = *stack_a;
+	ra_count = 0;
+	while (i)
+	{
+		if (is_in_chunk(i, chunk_min_index, chunk_max_index))
+		{
+			rra_count = ft_lstsize(*stack_a) - ra_count;
+			assign_smallest(&cost, &ra_count, &rra_count);
+			cost += rb_count;
+			set_cost((t_content *)(i->content), &cost);
+			ft_printf("in assign_cost_by_chunk: i->content->cost = ");
+			print_cost((t_content *)(i->content));
+			ft_printf("\n");
+		}
+		ra_count++;
+		i = i->next;
+	}
+}
+
+// esta funcion podría ser void (esperar a tener todo el códgio por si me viene bien aún)
+t_list	*get_cheapest(t_list **stack, int *ra_count)
+{
+	t_list	*i;
+	int		count;
+	t_list	*cheapest;
+
+	cheapest = *stack;
+	count = 0;
+	i = *stack;
+	while (i)
+	{
+		if (get_cost((t_content *)(i->content)) >= 0)
+		{
+			cheapest = i;
+			*ra_count = count;
+			break ;
+		}
+		count++;
+		i = i->next;
+	}
+	count = 0;
+	i = *stack;
+	while (i)
+	{
+		/*ft_printf("in find_cheapest: i->content->cost = ");
+		print_cost((t_content *)(cheapest->content));
+		ft_printf("\n");*/
+		if (get_cost((t_content *)(i->content)) >= 0)
+		{
+			//ft_printf("in find_cheapest: hi\n ");
+			if (compare_cost(i, cheapest) < 0)
+			{
+				//ft_printf("in find_cheapest: hi2\n ");
+				cheapest = i;
+				*ra_count = count;
+			}
+		}
+		count++;
+		i = i->next;
+	}
+	ft_printf("in get_cheapest: cheapest->content->cost = ");
+	print_cost((t_content *)(cheapest->content));
+	ft_printf("\n");
+	if (get_cost((t_content *)(cheapest->content)) == -1)
+		exit(1);
+	return (cheapest);
+}
+
+t_list	*pb_cheapest(t_list **stack_a, t_list **stack_b, t_list **stack_o)
+{
+	int		ra_count;
+	int		rra_count;
+	t_list	*cheapest;
+
+	ra_count = 0;
+	cheapest = get_cheapest(stack_a, &ra_count);
+	if (ra_count < ft_lstsize(*stack_a) / 2)
+	{
+		while (ra_count--)
+			ra(stack_a, stack_b, stack_o);
+		pb(stack_a, stack_b, stack_o);
+	}
+	else
+	{
+		rra_count = ft_lstsize(*stack_a) - ra_count;
+		while (rra_count--)
+			rra(stack_a, stack_b, stack_o);
+		pb(stack_a, stack_b, stack_o);
+	}
+	return (cheapest);
+}
+
+t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o, int stack_size)
+{
+	int		chunk_qty;
+	int		chunk_size;
+	int		chunk_size_count;
+	int		i;
+	//int		j;
+
+	chunk_qty = compute_chunk_quantity(stack_size);
+	chunk_size = stack_size / chunk_qty;
+	if ((stack_size % chunk_qty) != 0)
+		chunk_size += 1;
+	/* debug */
+	ft_printf("in big_algorithm: chunk_num = %d\n", chunk_qty);
+	ft_printf("in big_algorithm: chunk_size = %d\n", chunk_size);
+	i = 0;
+	//j = chunk_qty - 1;
+	/* me falta pushear un primer elemento del primer chunk o último chunk para
+	empezar y controlar que paso el primer y último chunk a la vez */
+	//while (i < j)
+	while (2 * i < chunk_qty - 1)
+	{
+		chunk_size_count = chunk_size * 2;
+		while (chunk_size_count-- && *stack_a)
+		{
+			// computo coste primer chunk
+			assign_cost_by_chunk(stack_a, i * chunk_size, (i + 1) * chunk_size - 1, 0);
+			// computo coste ultimo chunk
+			//assign_cost_by_chunk(stack_a, j * chunk_size, (j + 1) * chunk_size - 1, 1);
+			assign_cost_by_chunk(stack_a, stack_size - 1 - ((i + 1) * chunk_size - 1), stack_size - 1 - (i * chunk_size), 1);
+			// paso el que tenga un coste menor
+			//if (is_in_chunk(pb_cheapest(stack_a, stack_b, stack_o), j * chunk_size, (j + 1) * chunk_size - 1))
+			if (is_in_chunk(pb_cheapest(stack_a, stack_b, stack_o), stack_size - 1 - ((i + 1) * chunk_size - 1), stack_size - 1 - (i * chunk_size)))
+				rb(stack_a, stack_b, stack_o);
+		}
+		i++;
+		//j--;
+	}
+	return (PS_OK);
+}
+
 t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size)
 {
-	//int		amplitude;
-	int		chunk_num;
-	t_list	hold;
-	int		r_count;
-	int		rr_count;
-	int		i;
-	//int		chunk_min;
-	int		chunk_size;
-	int		chunk_size_rem;
-	int		chunk_size_count;
-	int		first_chunk_flag;
-
-	/* implementar la logica usando assign_index */
 	if (assign_index(stack_a) == PS_MALLOC_FAIL)
 	{
 		free_stacks(stack_a, stack_b, stack_o, free);
 		return (PS_MALLOC_FAIL);
 	}
-	/* debug */
-	//print_stack_w_index(stack_a);
-	// chunk_min = smallest(stack_a);
-	// amplitude = biggest(stack_a) - chunk_min + 1;
-	chunk_num = select_chunk_num(stack_size);
-	//chunk_size = amplitude / chunk_num;
-	chunk_size = stack_size / chunk_num;
-	chunk_size_rem = stack_size % chunk_num;
-	first_chunk_flag = 0;
-	/* debug */
-	ft_printf("in big_algorithm: initial chunk_size_rem = %d\n", chunk_size_rem);
-	i = 0;
-	while (i < chunk_num)
-	{
-		chunk_size_count = chunk_size;
-		/*if (chunk_size_rem-- > 0)
-			chunk_size_count++;*/
-		if (i == 0)
-			chunk_size_count += chunk_size_rem;
-		while (chunk_size_count--)
-		{
-			/* debug */
-			ft_printf("in big_algorithm: i = %d\n", i);
-			ft_printf("in big_algorithm: chunk_num = %d\n", chunk_num);
-			ft_printf("in big_algorithm: stack_size = %d\n", stack_size);
-			ft_printf("in big_algorithm: chunk_size = %d\n", chunk_size);
-			ft_printf("in big_algorithm: chunk_size_rem = %d\n", chunk_size_rem);
-			ft_printf("in big_algorithm: chunk_size_count = %d\n", chunk_size_count);
-			//print_stack_w_index(stack_a);
-			r_count = compute_ra_and_hold(stack_a, stack_b, i * chunk_size + chunk_size_rem * first_chunk_flag, (i + 1) * chunk_size + chunk_size_rem - 1, &hold);
-			rr_count = ft_lstsize(*stack_a) - r_count;
-			/* debug */
-			ft_printf("in big_algorithm: hold = %p\n", hold);
-				ft_printf("in big_algorithm: hold->content-> (index = %d, value = %d)\n", get_index((t_content *)(hold.content)), get_value((t_content *)(hold.content)));
-			if (r_count <= rr_count)
-			{
-				while (r_count--)
-					ra(stack_a, stack_b, stack_o);
-					//ra(stack_a, stack_o);
-			}
-			else
-			{
-				while (rr_count--)
-					rra(stack_a, stack_b, stack_o);
-					//rra(stack_a, stack_o);
-			}
-			if (ft_lstsize(*stack_b))
-			{
-				/* debug */
-				ft_printf("in big_algorithm: hold = %p\n", hold);
-				ft_printf("in big_algorithm: hold->content-> (index = %d, value = %d)\n", get_index((t_content *)(hold.content)), get_value((t_content *)(hold.content)));
-				/* next function doesn't work properly because is meant for an "int *content"
-				it's time to migrate small and middle algorithm functions for the new content type*/
-				r_count = compute_r_before_push(stack_b, &hold);
-				ft_printf("in big_algorithm: r_count brefore push = %d\n", r_count);
-				/* debug */
-				//ft_printf("in big_algorithm: hello there\n");
-				rr_count = ft_lstsize(*stack_b) - r_count;
-				if (r_count <= rr_count)
-				{
-					while (r_count--)
-						rb(stack_a, stack_b, stack_o);
-						//rb(stack_b, stack_o);
-				}
-				else
-				{
-					while (rr_count--)
-						rrb(stack_a, stack_b, stack_o);
-						//rrb(stack_b, stack_o);
-				}
-			}
-			pb(stack_a, stack_b, stack_o);
-		}
-		first_chunk_flag = 1;
-		i++;
-	}
-	prepare_b_for_pa(stack_a, stack_b, stack_o);
-	pa_all(stack_a, stack_b, stack_o, stack_size);
+	pb_chunks(stack_a, stack_b, stack_o, stack_size);
+
 	return (PS_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/10 19:47:44 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:19:14 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef int	t_ps_error;
 typedef struct s_content
 {
 	int	*index;
-	int	*ra_cost;
+	int	*cost;
 	int	*value;
 }				t_content;
 typedef struct s_hold
@@ -85,13 +85,15 @@ t_list		*return_second2last(t_list **stack);
 void		print_stack(t_list **stack);
 void		print_stacks(t_list **stack_a, t_list **stack_b);
 int			get_index(t_content *content);
+int			get_cost(t_content *content);
 int			get_value(t_content *content);
 void		set_index(t_content *content, int *index);
+void		set_cost(t_content *content, int *cost);
 void		set_value(t_content *content, int *value);
 void		free_content(void *content);
-void		free_stack_w_index(t_list **stack);
 void		print_index(t_content *content);
 void		print_value(t_content *content);
+void		print_cost(t_content *content);
 void		print_stack_w_index(t_list **stack);
 void		print_stacks_w_index(t_list **stack_a, t_list **stack_b);
 void		add_operation(t_list **stack_o, char *op_name);
@@ -101,7 +103,12 @@ int			r_distance_to_node(t_list **stack, t_list *node);
 int			compute_r_before_push(t_list **stack, t_list *node);
 int			compare_values(t_list *node_a, t_list *node_b);
 int			compare_index(t_list *node_a, t_list *node_b);
+int			compare_index_value(t_list *node_a, int index_value);
+int			compare_cost(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
+void		assign_biggest(int *dst, int *a, int *b);
+void		assign_smallest(int *dst, int *a, int *b);
+int			ft_sqrt(int nb);
 int			smallest(t_list **stack);
 int			distance_to_smallest(t_list **stack);
 int			distance_and_smallest(t_list **stack, int *smallest);
@@ -177,7 +184,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* assign index */
-t_ps_error	add_index(t_list **stack);
+t_ps_error	add_content(t_list **stack);
 t_ps_error	assign_index(t_list **stack);
 
 /* init */

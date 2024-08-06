@@ -6,13 +6,13 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/02 19:21:13 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:08:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ps_error	add_index(t_list **stack)
+t_ps_error	add_content(t_list **stack)
 {
 	t_list		*new_stack;
 	t_list		*i;
@@ -22,7 +22,7 @@ t_ps_error	add_index(t_list **stack)
 	new_stack = (t_list *)malloc(sizeof(t_list));
 	if (!new_stack)
 		return (PS_MALLOC_FAIL);
-	new_stack = NULL;
+	new_stack = NULL; // es esto necesario? podría apañarlo con un calloc?
 	i = *stack;
 	while (i)
 	{
@@ -54,7 +54,7 @@ t_ps_error	assign_index(t_list **stack)
 
 	/* ojo: hay que hacer un free stacks normal con free en el momento
 	que se vuelve de esta función */
-	if (add_index(stack) == PS_MALLOC_FAIL)
+	if (add_content(stack) == PS_MALLOC_FAIL)
 		return (PS_MALLOC_FAIL);
 	index = 0;
 	prev_candidate = NULL;
@@ -63,7 +63,7 @@ t_ps_error	assign_index(t_list **stack)
 	prev_candidate = get_smallest(stack);
 	/* debug */
 	ft_printf("in assign_index: prev_candidate->content = %d\n", get_value((t_content *)(prev_candidate->content)));
-	set_index(prev_candidate->content, &index);
+	set_index((t_content *)(prev_candidate->content), &index);
 	/* debug */
 	ft_printf("in assign_index: prev_candidate->index = %d\n", get_index((t_content *)(prev_candidate->content)));
 	//print_stack_w_index(stack);
