@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 16:53:50 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/07 18:12:00 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ int			compare_cost(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
 void		assign_biggest(int *dst, int a, int b);
 void		assign_smallest(int *dst, int a, int b);
+void		add_biggest(int *dst, int a, int b);
+void		add_smallest(int *dst, int a, int b);
 int			ft_sqrt(int nb);
 int			smallest(t_list **stack);
 int			distance_to_smallest(t_list **stack);
@@ -194,7 +196,10 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 						t_list **stack_o, int stack_size);
 
 /* big algorithm pa back */
-
+int			compute_cost_before_push(t_list **stack, t_list *node);
+void		assign_cost2all(t_list **stack_a, t_list **stack_b);
+t_ps_error	pa_back(t_list **stack_a, t_list **stack_b, \
+						t_list **stack_o, int stack_size);
 
 /* assign index */
 t_ps_error	add_content(t_list **stack);
