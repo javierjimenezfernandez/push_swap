@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/07/02 20:20:49 by javjimen         ###   ########.fr        #
+#    Updated: 2024/08/07 14:58:57 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRC			= $(addprefix $(SRC_DIR), main.c \
 									  small_algorithm.c \
 									  middle_algorithm.c \
 									  big_algorithm.c \
+									  big_algorithm_pb.c \
+									  big_algorithm_pa_back.c \
 									  assign_index.c \
 									  init.c)
 

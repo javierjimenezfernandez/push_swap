@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/06 18:19:14 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:02:58 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,21 @@ void		middle_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* big algorithm */
+t_list		*get_cheapest(t_list **stack, int *ra_count);
 t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
+
+/* big algorithm pb */
+int			compute_chunk_quantity(int stack_size);
+int			is_in_chunk(t_list	*node, int chunk_min_index, int chunk_max_index);
+void		assign_cost_by_chnk(t_list **stack_a, int chunk_min_index, \
+									int chunk_max_index, int rb_count);
+t_list		*pb_cheapest(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
+						t_list **stack_o, int stack_size);
+
+/* big algorithm pa back */
+
 
 /* assign index */
 t_ps_error	add_content(t_list **stack);
