@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/06 19:54:24 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:12 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -358,18 +358,18 @@ void	print_operations(t_list **stack)
 	}
 }
 
-void	assign_biggest(int *dst, int *a, int *b)
+void	assign_biggest(int *dst, int a, int b)
 {
-	*dst = *a;
-	if (*dst < *b)
-		*dst = *b;
+	*dst = a;
+	if (*dst < b)
+		*dst = b;
 }
 
-void	assign_smallest(int *dst, int *a, int *b)
+void	assign_smallest(int *dst, int a, int b)
 {
-	*dst = *a;
-	if (*dst > *b)
-		*dst = *b;
+	*dst = a;
+	if (*dst > b)
+		*dst = b;
 }
 
 int	ft_sqrt(int nb)

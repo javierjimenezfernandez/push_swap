@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 15:02:46 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:55:12 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	assign_cost_by_chnk(t_list **stack_a, int chunk_min_index, \
 		if (is_in_chunk(i, chunk_min_index, chunk_max_index))
 		{
 			rra_count = ft_lstsize(*stack_a) - ra_count;
-			assign_smallest(&cost, &ra_count, &rra_count);
+			assign_smallest(&cost, ra_count, rra_count);
 			cost += rb_count;
 			set_cost((t_content *)(i->content), &cost);
 		}

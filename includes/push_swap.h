@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 15:02:58 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:53:50 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ int			compare_index(t_list *node_a, t_list *node_b);
 int			compare_index_value(t_list *node_a, int index_value);
 int			compare_cost(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
-void		assign_biggest(int *dst, int *a, int *b);
-void		assign_smallest(int *dst, int *a, int *b);
+void		assign_biggest(int *dst, int a, int b);
+void		assign_smallest(int *dst, int a, int b);
 int			ft_sqrt(int nb);
 int			smallest(t_list **stack);
 int			distance_to_smallest(t_list **stack);
