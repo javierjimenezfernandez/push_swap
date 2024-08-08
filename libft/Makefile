@@ -111,7 +111,7 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 			$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-			$(RM) $(OBJ)
+			$(RM) $(OBJ_DIR)
 
 fclean:		clean
 			$(RM) $(NAME)

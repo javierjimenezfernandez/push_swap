@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/03/12 02:28:14 by javjimen         ###   ########.fr        #
+#    Updated: 2024/08/08 20:48:47 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,11 +23,19 @@ SRC			= $(addprefix $(SRC_DIR), main.c \
 									  stack_utils.c \
 									  split_argv2list.c \
 									  input_control.c \
-									  parse_input.c \
 									  swap.c \
 									  push.c \
 									  rotate.c \
-									  reverse_rotate.c)
+									  reverse_rotate.c \
+									  compute_operations.c \
+									  small_algorithm.c \
+									  middle_algorithm.c \
+									  big_algorithm.c \
+									  big_algorithm_pb.c \
+									  big_algorithm_pa_back.c \
+									  assign_index.c \
+									  special_rotations.c \
+									  init.c)
 
 # List of object files
 OBJ_DIR		= obj/
@@ -46,8 +54,10 @@ DIR_DUP		= mkdir -p $(@D)
 CFLAGS 		+= -Wall -Wextra -Werror -I includes -I libft/includes
 ARFLAGS		= -r -c -s
 
+SANITIZE	= $(CFLAGS) -fsanitize=address
+
 # Rule name protection
-.PHONY:		all libft clean fclean re
+.PHONY:		all libft clean fclean re sanitize
 
 all: 		$(NAME)
 
@@ -64,10 +74,13 @@ $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 
 clean:
 			make -C $(LIBFT_PATH) clean
-			$(RM) $(OBJ)
+			$(RM) $(OBJ_DIR)
 
 fclean:		clean
 			make -C $(LIBFT_PATH) fclean
 			$(RM) $(NAME)
 
 re:			fclean all
+
+sanitize:	$(LIBFT) $(OBJ) $(INLCUDES)
+			$(CC) $(SANITIZE) $(OBJ) -o $(NAME) $(LIBFT)

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:55:05 by javjimen          #+#    #+#             */
-/*   Updated: 2024/03/12 02:10:35 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/07/04 20:29:20 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,34 @@ void	reverse_rotate(t_list **stack)
 	}
 }
 
-void	rra(t_list **stack_a, t_list **stack_o)
+//void	rra(t_list **stack_a, t_list **stack_o)
+void	rra(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	reverse_rotate(stack_a);
 	add_operation(stack_o, RRA);
+	/* debug */
+	ft_printf("-> ");
+	ft_printf(RRA);
+	ft_printf("\n");
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }
 
-void	rrb(t_list **stack_b, t_list **stack_o)
+//void	rrb(t_list **stack_b, t_list **stack_o)
+void	rrb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	reverse_rotate(stack_b);
 	add_operation(stack_o, RRB);
+	/* debug */
+	ft_printf("-> ");
+	ft_printf(RRB);
+	ft_printf("\n");
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }
 
 void	rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o)
@@ -46,4 +64,12 @@ void	rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	reverse_rotate(stack_a);
 	reverse_rotate(stack_b);
 	add_operation(stack_o, RRR);
+	/* debug */
+	ft_printf("-> ");
+	ft_printf(RRR);
+	ft_printf("\n");
+	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
+		print_stacks(stack_a, stack_b);
+	else
+		print_stacks_w_index(stack_a, stack_b);
 }
