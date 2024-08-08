@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 16:55:12 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 19:05:57 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_list	*pb_cheapest(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 
 	ra_count = 0;
 	cheapest = get_cheapest(stack_a, &ra_count);
-	if (ra_count < ft_lstsize(*stack_a) / 2)
+	if (ra_count <= ft_lstsize(*stack_a) / 2)
 	{
 		while (ra_count--)
 			ra(stack_a, stack_b, stack_o);
