@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 16:53:50 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:24:49 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ typedef struct s_content
 	int	*cost;
 	int	*value;
 }				t_content;
+typedef struct s_rot_costs
+{
+	int	ra_cost;
+	int	rra_cost;
+	int	rb_cost;
+	int	rrb_cost;
+}				t_rot_costs;
 typedef struct s_hold
 {
 	t_list	*hold_first;
@@ -100,14 +107,20 @@ void		add_operation(t_list **stack_o, char *op_name);
 t_list		*get_smallest(t_list **stack);
 t_list		*get_biggest(t_list **stack);
 int			r_distance_to_node(t_list **stack, t_list *node);
-int			compute_r_before_push(t_list **stack, t_list *node);
+//int			compute_r_before_push(t_list **stack, t_list *node);
 int			compare_values(t_list *node_a, t_list *node_b);
 int			compare_index(t_list *node_a, t_list *node_b);
 int			compare_index_value(t_list *node_a, int index_value);
 int			compare_cost(t_list *node_a, t_list *node_b);
 void		print_operations(t_list **stack);
+int			ft_max2(int a, int b);
+int			ft_max3(int a, int b, int c);
+int			ft_min2(int a, int b);
+int			ft_min3(int a, int b, int c);
 void		assign_biggest(int *dst, int a, int b);
 void		assign_smallest(int *dst, int a, int b);
+void		add_biggest(int *dst, int a, int b);
+void		add_smallest(int *dst, int a, int b);
 int			ft_sqrt(int nb);
 int			smallest(t_list **stack);
 int			distance_to_smallest(t_list **stack);
@@ -180,7 +193,9 @@ void		middle_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* big algorithm */
-t_list		*get_cheapest(t_list **stack, int *ra_count);
+void	put_smaller_first(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o, int stack_size);
+t_list		*get_cheapest(t_list **stack, int *r_count);
 t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
@@ -194,11 +209,27 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 						t_list **stack_o, int stack_size);
 
 /* big algorithm pa back */
-
+void		perform_cheapest_rot(t_rot_costs costs, t_list **stack_a, \
+									t_list **stack_b, t_list **stack_o);
+int			compute_cost(int ra_count, int stack_size_a, int rb_count, int stack_size_b);
+int			compute_r_before_push(t_list **stack, t_list *node);
+void		assign_cost2all(t_list **stack_a, t_list **stack_b, \
+							int stack_size_a, int stack_size_b);
+t_ps_error	pa_back(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* assign index */
 t_ps_error	add_content(t_list **stack);
 t_ps_error	assign_index(t_list **stack);
+
+/* special rotations */
+void		ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+						t_list **stack_b, t_list **stack_o);
+void		rra_rrb_rrr(t_rot_costs costs, t_list **stack_a, \
+						t_list **stack_b, t_list **stack_o);
+void		ra_rrb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+											t_list **stack_b, t_list **stack_o);
+void		rra_rb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+											t_list **stack_b, t_list **stack_o);
 
 /* init */
 t_ps_error	stacks_init(t_list **stack_a, t_list **stack_b, t_list **stack_o);

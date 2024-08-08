@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/07 16:55:12 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:27:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ int	r_distance_to_node(t_list **stack, t_list *node)
 	return (r_count);
 }
 
-int	compute_r_before_push(t_list **stack, t_list *node)
+/*int	compute_r_before_push(t_list **stack, t_list *node)
 {
 	int		r_count;
 	t_list	*i;
@@ -314,7 +314,7 @@ int	compute_r_before_push(t_list **stack, t_list *node)
 			r_count = r_distance_to_node(stack, get_biggest(stack));
 	}
 	return (r_count);
-}
+}*/
 
 int	compare_values(t_list *node_a, t_list *node_b)
 {
@@ -358,6 +358,60 @@ void	print_operations(t_list **stack)
 	}
 }
 
+/* sustituir assign y add por ft_max y ft_min?? */
+
+int	ft_max2(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	ft_max3(int a, int b, int c)
+{
+	if (a >= b)
+	{
+		if (a >= c)
+			return (a);
+		else
+			return (c);
+	}
+	else
+	{
+		if (b >= c)
+			return (b);
+		else
+			return (c);
+	}
+}
+
+int	ft_min2(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	ft_min3(int a, int b, int c)
+{
+	if (a <= b)
+	{
+		if (a <= c)
+			return (a);
+		else
+			return (c);
+	}
+	else
+	{
+		if (b <= c)
+			return (b);
+		else
+			return (c);
+	}
+}
+
 void	assign_biggest(int *dst, int a, int b)
 {
 	*dst = a;
@@ -370,6 +424,22 @@ void	assign_smallest(int *dst, int a, int b)
 	*dst = a;
 	if (*dst > b)
 		*dst = b;
+}
+
+void	add_biggest(int *dst, int a, int b)
+{
+	if (a > b)
+		*dst += a;
+	else
+		*dst += b;
+}
+
+void	add_smallest(int *dst, int a, int b)
+{
+	if (a < b)
+		*dst += a;
+	else
+		*dst += b;
 }
 
 int	ft_sqrt(int nb)
