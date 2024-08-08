@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/08 20:16:03 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:24:49 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,16 @@ t_ps_error	pa_back(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 /* assign index */
 t_ps_error	add_content(t_list **stack);
 t_ps_error	assign_index(t_list **stack);
+
+/* special rotations */
+void		ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+						t_list **stack_b, t_list **stack_o);
+void		rra_rrb_rrr(t_rot_costs costs, t_list **stack_a, \
+						t_list **stack_b, t_list **stack_o);
+void		ra_rrb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+											t_list **stack_b, t_list **stack_o);
+void		rra_rb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
+											t_list **stack_b, t_list **stack_o);
 
 /* init */
 t_ps_error	stacks_init(t_list **stack_a, t_list **stack_b, t_list **stack_o);

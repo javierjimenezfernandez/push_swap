@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:52:55 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/08 20:03:49 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 21:26:15 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,174 +18,19 @@ y pushearlo de vuelta. Tener en cuenta la doble rotación (ra + rb = rr e
 void	perform_cheapest_rot(t_rot_costs costs, t_list **stack_a, \
 								t_list **stack_b, t_list **stack_o)
 {
-	ft_printf("in perform_cheapest_rot:\n");
-	ft_printf("\t costs.ra_cost = %d\n", costs.ra_cost);
-	ft_printf("\t costs.rra_cost = %d\n", costs.rra_cost);
-	ft_printf("\t costs.rb_cost = %d\n", costs.rb_cost);
-	ft_printf("\t costs.rrb_cost = %d\n", costs.rrb_cost);
 	if (costs.ra_cost <= costs.rra_cost)
 	{
 		if (costs.rb_cost <= costs.rrb_cost)
-		{
-			if (costs.ra_cost <= costs.rb_cost)
-			{
-				while ((costs.ra_cost)--)
-				{
-					rr(stack_a, stack_b, stack_o);
-					(costs.rb_cost)--;
-				}
-				while ((costs.rb_cost)--)
-					rb(stack_a, stack_b, stack_o);
-			}
-			else
-			{
-				while ((costs.rb_cost)--)
-				{
-					rr(stack_a, stack_b, stack_o);
-					(costs.ra_cost)--;
-				}
-				while ((costs.ra_cost)--)
-					ra(stack_a, stack_b, stack_o);
-			}
-		}
+			ra_rb_rr(costs, stack_a, stack_b, stack_o);
 		else
-		{
-			if (costs.ra_cost + costs.rrb_cost <= ft_min2(ft_max2(costs.ra_cost, costs.rb_cost), ft_max2(costs.rra_cost, costs.rrb_cost)))
-			{
-				while ((costs.ra_cost)--)
-					ra(stack_a, stack_b, stack_o);
-				while ((costs.rrb_cost)--)
-					rrb(stack_a, stack_b, stack_o);
-			}
-			else if (ft_max2(costs.ra_cost, costs.rb_cost) <= ft_min2(costs.ra_cost + costs.rrb_cost, ft_max2(costs.rra_cost, costs.rrb_cost)))
-			{
-				if (costs.ra_cost <= costs.rb_cost)
-				{
-					while ((costs.ra_cost)--)
-					{
-						rr(stack_a, stack_b, stack_o);
-						(costs.rb_cost)--;
-					}
-					while ((costs.rb_cost)--)
-						rb(stack_a, stack_b, stack_o);
-				}
-				else
-				{
-					while ((costs.rb_cost)--)
-					{
-						rr(stack_a, stack_b, stack_o);
-						(costs.ra_cost)--;
-					}
-					while ((costs.ra_cost)--)
-						ra(stack_a, stack_b, stack_o);
-				}
-			}
-			else
-			{
-				if (costs.rra_cost <= costs.rrb_cost)
-				{
-					while ((costs.rra_cost)--)
-					{
-						rrr(stack_a, stack_b, stack_o);
-						(costs.rrb_cost)--;
-					}
-					while ((costs.rrb_cost)--)
-						rrb(stack_a, stack_b, stack_o);
-				}
-				else
-				{
-					while ((costs.rrb_cost)--)
-					{
-						rrr(stack_a, stack_b, stack_o);
-						(costs.rra_cost)--;
-					}
-					while ((costs.rra_cost)--)
-						rra(stack_a, stack_b, stack_o);
-				}
-			}
-		}
+			ra_rrb_or_ra_rb_rr_or_ra_rb_rr(costs, stack_a, stack_b, stack_o);
 	}
 	else
 	{
 		if (costs.rb_cost <= costs.rrb_cost)
-		{
-			if (costs.rra_cost + costs.rb_cost <= ft_min2(ft_max2(costs.ra_cost, costs.rb_cost), ft_max2(costs.rra_cost, costs.rrb_cost)))
-			{
-				while ((costs.rra_cost)--)
-					rra(stack_a, stack_b, stack_o);
-				while ((costs.rb_cost)--)
-					rb(stack_a, stack_b, stack_o);
-			}
-			else if (ft_max2(costs.ra_cost, costs.rb_cost) <= ft_min2(costs.rra_cost + costs.rb_cost, ft_max2(costs.rra_cost, costs.rrb_cost)))
-			{
-				if (costs.ra_cost <= costs.rb_cost)
-				{
-					while ((costs.ra_cost)--)
-					{
-						rr(stack_a, stack_b, stack_o);
-						(costs.rb_cost)--;
-					}
-					while ((costs.rb_cost)--)
-						rb(stack_a, stack_b, stack_o);
-				}
-				else
-				{
-					while ((costs.rb_cost)--)
-					{
-						rr(stack_a, stack_b, stack_o);
-						(costs.ra_cost)--;
-					}
-					while ((costs.ra_cost)--)
-						ra(stack_a, stack_b, stack_o);
-				}
-			}
-			else
-			{
-				if (costs.rra_cost <= costs.rrb_cost)
-				{
-					while ((costs.rra_cost)--)
-					{
-						rrr(stack_a, stack_b, stack_o);
-						(costs.rrb_cost)--;
-					}
-					while ((costs.rrb_cost)--)
-						rrb(stack_a, stack_b, stack_o);
-				}
-				else
-				{
-					while ((costs.rrb_cost)--)
-					{
-						rrr(stack_a, stack_b, stack_o);
-						(costs.rra_cost)--;
-					}
-					while ((costs.rra_cost)--)
-						rra(stack_a, stack_b, stack_o);
-				}
-			}
-		}
+			rra_rb_or_ra_rb_rr_or_ra_rb_rr(costs, stack_a, stack_b, stack_o);
 		else
-		{
-			if (costs.rra_cost <= costs.rrb_cost)
-			{
-				while ((costs.rra_cost)--)
-				{
-					rrr(stack_a, stack_b, stack_o);
-					(costs.rrb_cost)--;
-				}
-				while ((costs.rrb_cost)--)
-					rrb(stack_a, stack_b, stack_o);
-			}
-			else
-			{
-				while ((costs.rrb_cost)--)
-				{
-					rrr(stack_a, stack_b, stack_o);
-					(costs.rra_cost)--;
-				}
-				while ((costs.rra_cost)--)
-					rra(stack_a, stack_b, stack_o);
-			}
-		}
+			rra_rrb_rrr(costs, stack_a, stack_b, stack_o);
 	}
 }
 
@@ -258,9 +103,7 @@ void	assign_cost2all(t_list **stack_a, t_list **stack_b, \
 	{
 		cost = 0;
 		ra_count = compute_r_before_push(stack_a, i);
-		ft_printf("in assign_cost2all: node->value = %d \tra_count = %d", get_value((t_content *)i->content), ra_count);
 		cost = compute_cost(ra_count, stack_size_a, rb_count, stack_size_b);
-		ft_printf("\tcost = %d\n", cost);
 		set_cost((t_content *)i->content, &cost);
 		rb_count++;
 		i = i->next;
