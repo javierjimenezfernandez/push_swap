@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/04 21:03:06 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/08/08 17:27:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_stack(t_list **stack, void (*del)(void *))
 {
 	ft_lstclear(stack, del);
+	// ojo cuidado con este free que estaba comentado por algo:
 	//free(stack);
 }
 
@@ -79,10 +80,21 @@ void	print_stacks(t_list **stack_a, t_list **stack_b)
 	}
 }
 
+/* ojo porque los get y set no me son tan útiles si tengo que pasarle como
+argumento este chorizo : "(t_content *)(nodo->content)". Sería mejor poder
+pasarles únicamente el nodo y que la función ya castease internamente para
+devolver el return pedido */
+
 int	get_index(t_content *content)
 {
 	return(*(int *)(content->index));
 }
+
+int	get_cost(t_content *content)
+{
+	return(*(int *)(content->cost));
+}
+
 
 int	get_value(t_content *content)
 {
@@ -94,6 +106,12 @@ void	set_index(t_content *content, int *index)
 	*(content->index) = *index;
 }
 
+void	set_cost(t_content *content, int *cost)
+{
+	*(content->cost) = *cost;
+}
+
+
 void	set_value(t_content *content, int *value)
 {
 	*(content->value) = *value;
@@ -102,14 +120,9 @@ void	set_value(t_content *content, int *value)
 void	free_content(void *content)
 {
 	free(((t_content *)content)->index);
+	free(((t_content *)content)->cost);
 	free(((t_content *)content)->value);
 	free(content);
-}
-
-void	free_stack_w_index(t_list **stack)
-{
-	ft_lstclear(stack, free_content);
-	free(stack);
 }
 
 void	print_index(t_content *content)
@@ -122,18 +135,25 @@ void	print_value(t_content *content)
 	ft_printf("%d", *(int *)(content->value));
 }
 
+void	print_cost(t_content *content)
+{
+	ft_printf("%d", *(int *)(content->cost));
+}
+
 void	print_stack_w_index(t_list **stack)
 {
 	t_list	*i;
 
 	i = *stack;
 	ft_printf("\tstack\n");
-	ft_printf("index\tvalue\n");
+	ft_printf("index\tvalue\tcost\n");
 	while (i)
 	{
 		print_index((t_content *)(i->content));
 		ft_printf("\t");
 		print_value((t_content *)(i->content));
+		ft_printf("\t");
+		print_cost((t_content *)(i->content));
 		ft_printf("\n");
 		i = i->next;
 	}
@@ -147,7 +167,7 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 	i = *stack_a;
 	j = *stack_b;
 	ft_printf("\tstack_a\t\t|\t\tstack_b\t\n");
-	ft_printf("index\tvalue\t\t|\tindex\tvalue\t\n");
+	ft_printf("index\tvalue\tcost\t|\tindex\tvalue\tcost\n");
 	while (i || j)
 	{
 		if (i && j)
@@ -155,11 +175,15 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 			print_index((t_content *)(i->content));
 			ft_printf("\t");
 			print_value((t_content *)(i->content));
-			ft_printf("\t\t|\t");
+			ft_printf("\t");
+			print_cost((t_content *)(i->content));
+			ft_printf("\t|\t");
 			print_index((t_content *)(j->content));
 			ft_printf("\t");
 			print_value((t_content *)(j->content));
-			ft_printf("\t\n");
+			ft_printf("\t");
+			print_cost((t_content *)(j->content));
+			ft_printf("\n");
 			i = i->next;
 			j = j->next;
 		}
@@ -168,7 +192,9 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 			print_index((t_content *)(i->content));
 			ft_printf("\t");
 			print_value((t_content *)(i->content));
-			ft_printf("\t\t|\t");
+			ft_printf("\t");
+			print_cost((t_content *)(i->content));
+			ft_printf("\t|\t");
 			ft_printf("\t");
 			ft_printf("\t\n");
 			i = i->next;
@@ -180,7 +206,9 @@ void	print_stacks_w_index(t_list **stack_a, t_list **stack_b)
 			print_index((t_content *)(j->content));
 			ft_printf("\t");
 			print_value((t_content *)(j->content));
-			ft_printf("\t\n");
+			ft_printf("\t");
+			print_cost((t_content *)(j->content));
+			ft_printf("\n");
 			j = j->next;
 		}
 	}
@@ -257,7 +285,7 @@ int	r_distance_to_node(t_list **stack, t_list *node)
 	return (r_count);
 }
 
-int	compute_r_before_push(t_list **stack, t_list *node)
+/*int	compute_r_before_push(t_list **stack, t_list *node)
 {
 	int		r_count;
 	t_list	*i;
@@ -286,7 +314,7 @@ int	compute_r_before_push(t_list **stack, t_list *node)
 			r_count = r_distance_to_node(stack, get_biggest(stack));
 	}
 	return (r_count);
-}
+}*/
 
 int	compare_values(t_list *node_a, t_list *node_b)
 {
@@ -296,6 +324,16 @@ int	compare_values(t_list *node_a, t_list *node_b)
 int	compare_index(t_list *node_a, t_list *node_b)
 {
 	return (get_index((t_content *)(node_a->content)) - get_index((t_content *)(node_b->content)));
+}
+
+int	compare_index_value(t_list *node_a, int index_value)
+{
+	return (get_index((t_content *)(node_a->content)) - index_value);
+}
+
+int	compare_cost(t_list *node_a, t_list *node_b)
+{
+	return (get_cost((t_content *)(node_a->content)) - get_cost((t_content *)(node_b->content)));
 }
 
 void	add_operation(t_list **stack_o, char *op_name)
@@ -318,6 +356,102 @@ void	print_operations(t_list **stack)
 		ft_printf("%s\n", (char *)(i->content));
 		i = i->next;
 	}
+}
+
+/* sustituir assign y add por ft_max y ft_min?? */
+
+int	ft_max2(int a, int b)
+{
+	if (a >= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	ft_max3(int a, int b, int c)
+{
+	if (a >= b)
+	{
+		if (a >= c)
+			return (a);
+		else
+			return (c);
+	}
+	else
+	{
+		if (b >= c)
+			return (b);
+		else
+			return (c);
+	}
+}
+
+int	ft_min2(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	else
+		return (b);
+}
+
+int	ft_min3(int a, int b, int c)
+{
+	if (a <= b)
+	{
+		if (a <= c)
+			return (a);
+		else
+			return (c);
+	}
+	else
+	{
+		if (b <= c)
+			return (b);
+		else
+			return (c);
+	}
+}
+
+void	assign_biggest(int *dst, int a, int b)
+{
+	*dst = a;
+	if (*dst < b)
+		*dst = b;
+}
+
+void	assign_smallest(int *dst, int a, int b)
+{
+	*dst = a;
+	if (*dst > b)
+		*dst = b;
+}
+
+void	add_biggest(int *dst, int a, int b)
+{
+	if (a > b)
+		*dst += a;
+	else
+		*dst += b;
+}
+
+void	add_smallest(int *dst, int a, int b)
+{
+	if (a < b)
+		*dst += a;
+	else
+		*dst += b;
+}
+
+int	ft_sqrt(int nb)
+{
+	int	sq;
+
+	sq = 1;
+	while (sq < (nb / sq))
+		sq++;
+	if ((sq * sq) > nb)
+		return (sq - 1);
+	return (sq);
 }
 
 int	smallest(t_list **stack)
