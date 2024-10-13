@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 19:21:37 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 20:32:41 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,7 @@ void		assign_cost2all(t_list **stack_a, t_list **stack_b, \
 t_ps_error	pa_back(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* assign index */
-t_list		*node_w_new_content(t_list **new_stack, t_list *i);
+t_list		*node_w_new_content(t_list *i);
 t_ps_error	add_content(t_list **stack);
 t_list		*find_next(t_list **stack, t_list *candidate, \
 						t_list *prev_candidate);
@@ -210,7 +210,6 @@ void		rra_rb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
 											t_list **stack_b, t_list **stack_o);
 
 /* init */
-t_ps_error	stacks_init(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 t_ps_error	init_content(t_content *new_content);
 
 #endif
