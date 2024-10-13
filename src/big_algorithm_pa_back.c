@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:52:55 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/10 21:37:26 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:03:02 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	assign_cost2all(t_list **stack_a, t_list **stack_b, \
 		cost = 0;
 		ra_count = compute_r_before_push(stack_a, i);
 		cost = compute_cost(ra_count, stack_size_a, rb_count, stack_size_b);
-		set_cost((t_content *)i->content, &cost);
+		set_cost(i, cost);
 		rb_count++;
 		i = i->next;
 	}

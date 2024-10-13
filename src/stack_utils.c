@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 14:00:28 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:24:41 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,54 +69,49 @@ void	print_stacks(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-/* ojo porque los get y set no me son tan útiles si tengo que pasarle como
-argumento este chorizo : "(t_content *)(nodo->content)". Sería mejor poder
-pasarles únicamente el nodo y que la función ya castease internamente para
-devolver el return pedido */
-
-int	get_index(t_content *content)
+int	get_index(t_list *node)
 {
-	return (content->index);
+	return (((t_content *)(node->content))->index);
 }
 
-int	get_cost(t_content *content)
+int	get_cost(t_list *node)
 {
-	return (content->cost);
+	return (((t_content *)(node->content))->cost);
 }
 
-int	get_value(t_content *content)
+int	get_value(t_list *node)
 {
-	return (content->value);
+	return (((t_content *)(node->content))->value);
 }
 
-void	set_index(t_content *content, int *index)
+void	set_index(t_list *node, int index)
 {
-	content->index = *index;
+	((t_content *)(node->content))->index = index;
 }
 
-void	set_cost(t_content *content, int *cost)
+void	set_cost(t_list *node, int cost)
 {
-	content->cost = *cost;
+	((t_content *)(node->content))->cost = cost;
 }
 
-void	set_value(t_content *content, int *value)
+void	set_value(t_list *node, int value)
 {
-	content->value = *value;
+	((t_content *)(node->content))->value = value;
 }
 
-void	print_index(t_content *content)
+void	print_index(t_list *node)
 {
-	ft_printf("%d", content->index);
+	ft_printf("%d", ((t_content *)(node->content))->index);
 }
 
-void	print_value(t_content *content)
+void	print_value(t_list *node)
 {
-	ft_printf("%d", content->value);
+	ft_printf("%d", ((t_content *)(node->content))->value);
 }
 
-void	print_cost(t_content *content)
+void	print_cost(t_list *node)
 {
-	ft_printf("%d", content->cost);
+	ft_printf("%d", ((t_content *)(node->content))->cost);
 }
 
 void	print_stack_w_content(t_list **stack)
@@ -128,73 +123,73 @@ void	print_stack_w_content(t_list **stack)
 	ft_printf("index\tvalue\tcost\n");
 	while (i)
 	{
-		print_index((t_content *)(i->content));
+		print_index(i);
 		ft_printf("\t");
-		print_value((t_content *)(i->content));
+		print_value(i);
 		ft_printf("\t");
-		print_cost((t_content *)(i->content));
+		print_cost(i);
 		ft_printf("\n");
 		i = i->next;
 	}
 }
 
-void	print_ab_row(t_list *a, t_list *b)
+void	print_ab_row(t_list *node_a, t_list *node_b)
 {
-	print_index((t_content *)(a->content));
+	print_index(node_a);
 	ft_printf("\t");
-	print_value((t_content *)(a->content));
+	print_value(node_a);
 	ft_printf("\t");
-	print_cost((t_content *)(a->content));
+	print_cost(node_a);
 	ft_printf("\t|\t");
-	print_index((t_content *)(b->content));
+	print_index(node_b);
 	ft_printf("\t");
-	print_value((t_content *)(b->content));
+	print_value(node_b);
 	ft_printf("\t");
-	print_cost((t_content *)(b->content));
+	print_cost(node_b);
 	ft_printf("\n");
 }
 
-void	print_a_row(t_list *a)
+void	print_a_row(t_list *node_a)
 {
-	print_index((t_content *)(a->content));
+	print_index(node_a);
 	ft_printf("\t");
-	print_value((t_content *)(a->content));
+	print_value(node_a);
 	ft_printf("\t");
-	print_cost((t_content *)(a->content));
+	print_cost(node_a);
 	ft_printf("\t|\t");
 	ft_printf("\t");
 	ft_printf("\t\n");
 }
 
-void	print_b_row(t_list *b)
+void	print_b_row(t_list *node_b)
 {
 	ft_printf("\t");
 	ft_printf("\t\t|\t");
-	print_index((t_content *)(b->content));
+	print_index(node_b);
 	ft_printf("\t");
-	print_value((t_content *)(b->content));
+	print_value(node_b);
 	ft_printf("\t");
-	print_cost((t_content *)(b->content));
+	print_cost(node_b);
 	ft_printf("\n");
 }
 
-void	print_row(t_list **a, t_list **b)
+void	print_row(t_list **node_a, t_list **node_b)
 {
-	if (*a && *b)
+	if (*node_a && *node_b)
 	{
-		print_ab_row(*a, *b);
-		*a = (*a)->next;
-		*b = (*b)->next;
+		print_ab_row(*node_a, *node_b);
+		*node_a = (*node_a)->next;
+		*node_b = (*node_b)->next;
 	}
-	else if (*a && !(*b))
+	else if (*node_a && !(*node_b))
 	{
-		print_a_row(*a);
-		*a = (*a)->next;
+		print_a_row(*node_a);
+		*node_a = (*node_a)->next;
 	}
-	else if (!(*a) && *b)
+	else if (!(*node_a) && *node_b)
 	{
-		print_b_row(*b);
-		*b = (*b)->next;
+		print_b_row(*node_b);
+		*node_b = (*node_b)->next;
 	}
 }
 
@@ -223,8 +218,7 @@ t_list	*get_smallest(t_list **stack)
 	i = i->next;
 	while (i)
 	{
-		if (get_value((t_content *)(i->content)) < \
-			get_value((t_content *)((candidate)->content)))
+		if (get_value(i) < get_value(candidate))
 			candidate = i;
 		i = i->next;
 	}
@@ -241,8 +235,7 @@ t_list	*get_biggest(t_list **stack)
 	i = i->next;
 	while (i)
 	{
-		if (get_value((t_content *)(i->content)) > \
-			get_value((t_content *)((candidate)->content)))
+		if (get_value(i) > get_value(candidate))
 			candidate = i;
 		i = i->next;
 	}
@@ -258,8 +251,7 @@ int	r_distance_to_node(t_list **stack, t_list *node)
 	i = *stack;
 	while (i)
 	{
-		if (get_value((t_content *)(i->content)) == \
-			get_value((t_content *)(node->content)))
+		if (get_value(i) == get_value(node))
 			break ;
 		r_count++;
 		i = i->next;
@@ -269,25 +261,22 @@ int	r_distance_to_node(t_list **stack, t_list *node)
 
 int	compare_values(t_list *node_a, t_list *node_b)
 {
-	return (get_value((t_content *)(node_a->content)) - \
-			get_value((t_content *)(node_b->content)));
+	return (get_value(node_a) - get_value(node_b));
 }
 
 int	compare_index(t_list *node_a, t_list *node_b)
 {
-	return (get_index((t_content *)(node_a->content)) - \
-			get_index((t_content *)(node_b->content)));
+	return (get_index(node_a) - get_index(node_b));
 }
 
-int	compare_index_value(t_list *node_a, int index_value)
+int	compare_index_w_int(t_list *node_a, int index)
 {
-	return (get_index((t_content *)(node_a->content)) - index_value);
+	return (get_index(node_a) - index);
 }
 
 int	compare_cost(t_list *node_a, t_list *node_b)
 {
-	return (get_cost((t_content *)(node_a->content)) - \
-			get_cost((t_content *)(node_b->content)));
+	return (get_cost(node_a) - get_cost(node_b));
 }
 
 void	add_operation(t_list **stack_o, char *op_name)

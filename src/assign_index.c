@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 13:05:03 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:55:42 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_list	*node_w_new_content(t_list **new_stack, t_list *i)
 		free_stack(new_stack, free);
 		return (NULL);
 	}
-	set_value(new_content, (int *)(i->content));
 	new_node = ft_lstnew(new_content);
 	if (!new_node)
 	{
@@ -31,6 +30,7 @@ t_list	*node_w_new_content(t_list **new_stack, t_list *i)
 		free_stack(new_stack, free);
 		return (NULL);
 	}
+	set_value(new_node, *(int *)(i->content));
 	return (new_node);
 }
 
@@ -85,14 +85,14 @@ t_ps_error	assign_index(t_list **stack)
 		return (PS_MALLOC_FAIL);
 	index = 0;
 	prev_candidate = get_smallest(stack);
-	set_index((t_content *)(prev_candidate->content), &index);
+	set_index(prev_candidate, index);
 	index++;
 	biggest = get_biggest(stack);
 	i = *stack;
 	while (i->next)
 	{
 		candidate = find_next(stack, biggest, prev_candidate);
-		set_index((t_content *)(candidate->content), &index);
+		set_index(candidate, index);
 		index++;
 		prev_candidate = candidate;
 		i = i->next;

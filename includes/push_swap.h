@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 14:37:45 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:21:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,15 +79,15 @@ void		free_stacks(t_list **stack_a, t_list **stack_b, t_list **stack_o, \
 							void (*del)(void *));
 void		print_stack(t_list **stack);
 void		print_stacks(t_list **stack_a, t_list **stack_b);
-int			get_index(t_content *content);
-int			get_cost(t_content *content);
-int			get_value(t_content *content);
-void		set_index(t_content *content, int *index);
-void		set_cost(t_content *content, int *cost);
-void		set_value(t_content *content, int *value);
-void		print_index(t_content *content);
-void		print_value(t_content *content);
-void		print_cost(t_content *content);
+int			get_index(t_list *node);
+int			get_cost(t_list *node);
+int			get_value(t_list *node);
+void		set_index(t_list *node, int index);
+void		set_cost(t_list *node, int cost);
+void		set_value(t_list *node, int value);
+void		print_index(t_list *node);
+void		print_value(t_list *node);
+void		print_cost(t_list *node);
 void		print_stack_w_content(t_list **stack);
 void		print_stacks_w_content(t_list **stack_a, t_list **stack_b);
 t_list		*get_smallest(t_list **stack);
@@ -95,7 +95,7 @@ t_list		*get_biggest(t_list **stack);
 int			r_distance_to_node(t_list **stack, t_list *node);
 int			compare_values(t_list *node_a, t_list *node_b);
 int			compare_index(t_list *node_a, t_list *node_b);
-int			compare_index_value(t_list *node_a, int index_value);
+int			compare_index_w_int(t_list *node_a, int index);
 int			compare_cost(t_list *node_a, t_list *node_b);
 void		add_operation(t_list **stack_o, char *op_name);
 void		print_operations(t_list **stack);

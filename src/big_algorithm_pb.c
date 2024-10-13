@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/11 17:40:41 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 19:21:36 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	compute_chunk_quantity(int stack_size)
 
 int	is_in_chunk(t_list	*node, int chunk_min_index, int chunk_max_index)
 {
-	if (compare_index_value(node, chunk_min_index) >= 0 && \
-		compare_index_value(node, chunk_max_index) <= 0)
+	if (compare_index_w_int(node, chunk_min_index) >= 0 && \
+		compare_index_w_int(node, chunk_max_index) <= 0)
 		return (1);
 	else
 		return (0);
@@ -47,7 +47,7 @@ void	assign_cost_by_chnk(t_list **stack_a, int chunk_min_index, \
 		{
 			rra_count = ft_lstsize(*stack_a) - ra_count;
 			cost = ft_min2(ra_count, rra_count) + rb_count;
-			set_cost((t_content *)(i->content), &cost);
+			set_cost(i, cost);
 		}
 		ra_count++;
 		i = i->next;
