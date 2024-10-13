@@ -6,18 +6,17 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/04 20:30:53 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/13 13:18:38 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
-	t_list *stack_a;
-	t_list *stack_b;
-	t_list *stack_o;
-	int stack_size;
+	t_list	*stack_a;
+	t_list	*stack_b;
+	t_list	*stack_o;
 
 	if (argc > 1)
 	{
@@ -27,38 +26,17 @@ int main(int argc, char **argv)
 		if (stacks_init(&stack_a, &stack_b, &stack_o) == PS_MALLOC_FAIL)
 			return (PS_MALLOC_FAIL);
 		if ((argc == 2 && argv[1][0] == '\0') ||
-			split_argv2list(argc, argv, &stack_a) || input_control(&stack_a))
+			split_argv2list(argv, &stack_a) || input_control(&stack_a))
 		{
 			free_stacks(&stack_a, &stack_b, &stack_o, free);
 			ft_putstr_fd("Error\n", 2);
 			return (PS_ERROR);
 		}
-		/* debug */
-		ft_printf("Original stacks:\n");
-		print_stacks(&stack_a, &stack_b);
-
-		stack_size = ft_lstsize(stack_a);
-
-		/* debug */
-		ft_printf("size: %d\n", stack_size);
-		ft_printf("---------------------------------------------\n\n");
-
-		if (compute_operations(&stack_a, &stack_b, &stack_o, stack_size) == PS_MALLOC_FAIL)
+		if (compute_operations(&stack_a, &stack_b, &stack_o, \
+			ft_lstsize(stack_a)) == PS_MALLOC_FAIL)
 			return (PS_MALLOC_FAIL);
-		/* debug */
-		ft_printf("---------------------------------------------\n\n");
-		ft_printf("Result: \n");
-		if (stack_size <= 6)
-			print_stacks(&stack_a, &stack_b);
-		else
-			print_stacks_w_index(&stack_a, &stack_b);
-		ft_printf("\n");
-		ft_printf("%d operations: \n", ft_lstsize(stack_o));
 		print_operations(&stack_o);
-		if (stack_size <= 6)
-			free_stacks(&stack_a, &stack_b, &stack_o, free);
-		else
-			free_stacks(&stack_a, &stack_b, &stack_o, free_content);
+		free_stacks(&stack_a, &stack_b, &stack_o, free);
 	}
 	return (PS_OK);
 }

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/08 19:05:57 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/11 17:40:41 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	assign_cost_by_chnk(t_list **stack_a, int chunk_min_index, \
 		if (is_in_chunk(i, chunk_min_index, chunk_max_index))
 		{
 			rra_count = ft_lstsize(*stack_a) - ra_count;
-			assign_smallest(&cost, ra_count, rra_count);
-			cost += rb_count;
+			cost = ft_min2(ra_count, rra_count) + rb_count;
 			set_cost((t_content *)(i->content), &cost);
 		}
 		ra_count++;
@@ -66,14 +65,14 @@ t_list	*pb_cheapest(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	if (ra_count <= ft_lstsize(*stack_a) / 2)
 	{
 		while (ra_count--)
-			ra(stack_a, stack_b, stack_o);
+			ra(stack_a, stack_o);
 		pb(stack_a, stack_b, stack_o);
 	}
 	else
 	{
 		rra_count = ft_lstsize(*stack_a) - ra_count;
 		while (rra_count--)
-			rra(stack_a, stack_b, stack_o);
+			rra(stack_a, stack_o);
 		pb(stack_a, stack_b, stack_o);
 	}
 	return (cheapest);
@@ -102,7 +101,7 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 									stack_size - 1 - (i * chnk_sz), 1);
 			if (is_in_chunk(pb_cheapest(stack_a, stack_b, stack_o), \
 				stack_size - (i + 1) * chnk_sz, stack_size - 1 - (i * chnk_sz)))
-				rb(stack_a, stack_b, stack_o);
+				rb(stack_b, stack_o);
 		}
 		i++;
 	}

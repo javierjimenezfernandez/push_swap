@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:54:29 by javjimen          #+#    #+#             */
-/*   Updated: 2024/07/04 20:28:43 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/10 19:24:32 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,10 @@ void	pa(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	push(stack_a, stack_b);
 	add_operation(stack_o, PA);
-	/* debug */
-	ft_printf("-> ");
-	ft_printf(PA);
-	ft_printf("\n");
-	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
-		print_stacks(stack_a, stack_b);
-	else
-		print_stacks_w_index(stack_a, stack_b);
 }
 
 void	pb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	push(stack_b, stack_a);
 	add_operation(stack_o, PB);
-	/* debug */
-	ft_printf("-> ");
-	ft_printf(PB);
-	ft_printf("\n");
-	if ((ft_lstsize(*stack_a) + ft_lstsize(*stack_b)) <= 6)
-		print_stacks(stack_a, stack_b);
-	else
-		print_stacks_w_index(stack_a, stack_b);
 }

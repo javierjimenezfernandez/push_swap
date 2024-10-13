@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:52:55 by javjimen          #+#    #+#             */
-/*   Updated: 2024/08/08 21:26:15 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/10 21:37:26 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_ps_error	pa_back(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	pa(stack_a, stack_b, stack_o);
 	pa(stack_a, stack_b, stack_o);
 	if (compare_values((*stack_a)->next, *stack_a) < 0)
-		ra(stack_a, stack_b, stack_o);
+		ra(stack_a, stack_o);
 	while (*stack_b)
 	{
 		stack_size_a = ft_lstsize(*stack_a);
