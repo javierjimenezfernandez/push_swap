@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 19:24:41 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:14:16 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,86 +363,4 @@ int	ft_sqrt(int nb)
 	if ((sq * sq) > nb)
 		return (sq - 1);
 	return (sq);
-}
-
-int	smallest(t_list **stack)
-{
-	int		candidate;
-	t_list	*i;
-
-	candidate = *(int *)((*stack)->content);
-	i = (*stack)->next;
-	while (i)
-	{
-		if (*(int *)(i->content) < candidate)
-			candidate = *(int *)(i->content);
-		i = i->next;
-	}
-	return (candidate);
-}
-
-int	distance_to_smallest(t_list **stack)
-{
-	int		candidate;
-	int		distance;
-	int		count;
-	t_list	*i;
-
-	count = 0;
-	distance = count;
-	candidate = *(int *)((*stack)->content);
-	i = (*stack)->next;
-	count++;
-	while (i)
-	{
-		if (*(int *)(i->content) < candidate)
-		{
-			candidate = *(int *)(i->content);
-			distance = count;
-		}
-		count++;
-		i = i->next;
-	}
-	return (distance);
-}
-
-int	biggest(t_list **stack)
-{
-	int		candidate;
-	t_list	*i;
-
-	candidate = *(int *)((*stack)->content);
-	i = (*stack)->next;
-	while (i)
-	{
-		if (*(int *)(i->content) > candidate)
-			candidate = *(int *)(i->content);
-		i = i->next;
-	}
-	return (candidate);
-}
-
-int	distance_to_biggest(t_list **stack)
-{
-	int		candidate;
-	int		distance;
-	int		count;
-	t_list	*i;
-
-	count = 0;
-	distance = count;
-	candidate = *(int *)((*stack)->content);
-	i = (*stack)->next;
-	count++;
-	while (i)
-	{
-		if (*(int *)(i->content) > candidate)
-		{
-			candidate = *(int *)(i->content);
-			distance = count;
-		}
-		count++;
-		i = i->next;
-	}
-	return (distance);
 }

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 20:16:18 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:34:18 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	main(int argc, char **argv)
 		stack_b = NULL;
 		stack_o = NULL;
 		if ((argc == 2 && argv[1][0] == '\0') ||
-			split_argv2list(argv, &stack_a) || input_control(&stack_a))
+			split_argv2list(&(argv[1]), &stack_a) || input_control(&stack_a))
 		{
 			free_stack(&stack_a, free);
 			ft_putstr_fd("Error\n", 2);

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 20:32:41 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:47:24 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,6 @@
 # define RRA	"rra"
 # define RRB	"rrb"
 # define RRR	"rrr"
-
-/* stack size limits for chunk division */
-/* series based on sqrt(x)/(log of x base sqrt(x))*/
-# define STACK_SIZE_1	16
-# define STACK_SIZE_2	36
-# define STACK_SIZE_3	64
-# define STACK_SIZE_4	100
-# define STACK_SIZE_5	144
-# define STACK_SIZE_6	196
-# define STACK_SIZE_7	256
-# define STACK_SIZE_8	324
-# define STACK_SIZE_9	400
-# define STACK_SIZE_10	484
-# define STACK_SIZE_11	576
-# define STACK_SIZE_12	676
-# define STACK_SIZE_13	784
-# define STACK_SIZE_14	900
-# define STACK_SIZE_15	1024
 
 /* typedef */
 typedef int	t_ps_error;
@@ -104,10 +86,6 @@ int			ft_max3(int a, int b, int c);
 int			ft_min2(int a, int b);
 int			ft_min3(int a, int b, int c);
 int			ft_sqrt(int nb);
-int			smallest(t_list **stack);
-int			distance_to_smallest(t_list **stack);
-int			biggest(t_list **stack);
-int			distance_to_biggest(t_list **stack);
 
 /* split argv2list */
 t_ps_error	s_array_free(char **s_array);
@@ -144,8 +122,6 @@ void		rrb(t_list **stack_b, t_list **stack_o);
 void		rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* compute operations */
-t_ps_error	select_algorithm(t_list **stack_a, t_list **stack_b, \
-								t_list **stack_o, int stack_size);
 t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 								t_list **stack_o, int stack_size);
 
@@ -153,15 +129,6 @@ t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 void		twonum_logic(t_list **stack_a, t_list **stack_o);
 void		threenum_logic(t_list **stack_a, t_list **stack_o);
 void		small_algorithm(t_list **stack_a, t_list **stack_o, int stack_size);
-
-/* middle algorithm */
-int			distance_to_next_smaller(t_list **stack, t_list *node);
-int			distance_to_next_bigger(t_list **stack, t_list *node);
-int			compute_r_distance(t_list **stack, t_list *node);
-void		push_back_numbers(t_list **stack_a, t_list **stack_b, \
-							t_list **stack_o);
-void		middle_algorithm(t_list **stack_a, t_list **stack_b, \
-							t_list **stack_o, int stack_size);
 
 /* big algorithm */
 void		put_smaller_first(t_list **stack_a, t_list **stack_o, \

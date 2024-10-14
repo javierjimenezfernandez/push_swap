@@ -6,20 +6,22 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 19:21:36 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:09:38 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	compute_chunk_quantity(int stack_size)
+void	compute_chnk_qty_nd_sz(int *chnk_qty, int *chnk_sz, int stack_size)
 {
-	int	chunk_num;
-
-	chunk_num = (ft_sqrt(stack_size - 1) / 2) + 1;
-	if (chunk_num % 2 != 0)
-		chunk_num--;
-	return (chunk_num);
+	*chnk_qty = (ft_sqrt(stack_size - 1) / 2) + 1;
+	if (*chnk_qty % 2 != 0)
+		(*chnk_qty)--;
+	if (*chnk_qty < 2)
+		*chnk_qty = 2;
+	*chnk_sz = stack_size / *chnk_qty;
+	if ((stack_size % *chnk_qty) != 0)
+		(*chnk_sz) += 1;
 }
 
 int	is_in_chunk(t_list	*node, int chunk_min_index, int chunk_max_index)
@@ -86,10 +88,7 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 	int		chnk_sz_cnt;
 	int		i;
 
-	chnk_qty = compute_chunk_quantity(stack_size);
-	chnk_sz = stack_size / chnk_qty;
-	if ((stack_size % chnk_qty) != 0)
-		chnk_sz += 1;
+	compute_chnk_qty_nd_sz(&chnk_qty, &chnk_sz, stack_size);
 	i = 0;
 	while (2 * i < chnk_qty - 1)
 	{
@@ -102,6 +101,8 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 			if (is_in_chunk(pb_cheapest(stack_a, stack_b, stack_o), \
 				stack_size - (i + 1) * chnk_sz, stack_size - 1 - (i * chnk_sz)))
 				rb(stack_b, stack_o);
+			if (!((((*stack_a)->next)->next)->next))
+				break ;
 		}
 		i++;
 	}

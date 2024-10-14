@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 20:24:36 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:37:16 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,8 @@ t_list	*get_cheapest(t_list **stack, int *r_count)
 t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size)
 {
-	if (assign_index(stack_a) == PS_MALLOC_FAIL)
-	{
-		free_stack(stack_a, free);
-		return (PS_MALLOC_FAIL);
-	}
 	pb_chunks(stack_a, stack_b, stack_o, stack_size);
+	small_algorithm(stack_a, stack_o, ft_lstsize(*stack_a));
 	pa_back(stack_a, stack_b, stack_o);
 	put_smaller_first(stack_a, stack_o, stack_size);
 	return (PS_OK);
