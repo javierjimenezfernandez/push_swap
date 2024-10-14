@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/13 20:40:48 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 13:55:43 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ t_ps_error	add_content(t_list **stack)
 	{
 		new_node = node_w_new_content(i);
 		if (!new_node)
+		{
+			free_stack(&new_stack, free);
 			return (PS_MALLOC_FAIL);
+		}
 		ft_lstadd_back(&new_stack, new_node);
 		i = i->next;
 	}
