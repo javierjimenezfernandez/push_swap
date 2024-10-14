@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 17:24:06 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:33:25 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);
 
 /* big algorithm pb */
-int			compute_chunk_quantity(int stack_size);
+void		compute_chnk_qty_nd_sz(int *chnk_qty, int *chnk_sz, int stack_size);
 int			is_in_chunk(t_list	*node, int chunk_min_index, \
 							int chunk_max_index);
 void		assign_cost_by_chnk(t_list **stack_a, int chunk_min_index, \
