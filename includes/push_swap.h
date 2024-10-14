@@ -6,13 +6,14 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 16:56:26 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:24:06 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
+# include <stdlib.h>
 # include "libft.h"
 # include "ft_printf.h"
 
@@ -79,7 +80,8 @@ int			compare_values(t_list *node_a, t_list *node_b);
 int			compare_index(t_list *node_a, t_list *node_b);
 int			compare_index_w_int(t_list *node_a, int index);
 int			compare_cost(t_list *node_a, t_list *node_b);
-void		add_operation(t_list **stack_o, char *op_name);
+void		add_operation(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o, char *op_name);
 void		print_operations(t_list **stack);
 int			ft_max2(int a, int b);
 int			ft_max3(int a, int b, int c);
@@ -100,8 +102,8 @@ t_ps_error	input_control(t_list **stack_a);
 
 /* swap */
 void		swap(t_list **stack);
-void		sa(t_list **stack_a, t_list **stack_o);
-void		sb(t_list **stack_b, t_list **stack_o);
+void		sa(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+void		sb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 void		ss(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* push */
@@ -111,14 +113,14 @@ void		pb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* rotate */
 void		rotate(t_list **stack);
-void		ra(t_list **stack_a, t_list **stack_o);
-void		rb(t_list **stack_b, t_list **stack_o);
+void		ra(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+void		rb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 void		rr(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* reverse rotate */
 void		reverse_rotate(t_list **stack);
-void		rra(t_list **stack_a, t_list **stack_o);
-void		rrb(t_list **stack_b, t_list **stack_o);
+void		rra(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+void		rrb(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 void		rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* compute operations */
@@ -127,13 +129,15 @@ t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 								t_list **stack_o, int stack_size);
 
 /* small algorithm */
-void		twonum_logic(t_list **stack_a, t_list **stack_o);
-void		threenum_logic(t_list **stack_a, t_list **stack_o);
-void		small_algorithm(t_list **stack_a, t_list **stack_o, int stack_size);
+void		twonum_logic(t_list **stack_a, t_list **stack_b, t_list **stack_o);
+void		threenum_logic(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o);
+void		small_algorithm(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o, int stack_size);
 
 /* big algorithm */
-void		put_smaller_first(t_list **stack_a, t_list **stack_o, \
-								int stack_size);
+void		put_smaller_first(t_list **stack_a, t_list **stack_b, \
+								t_list **stack_o, int stack_size);
 t_list		*get_cheapest(t_list **stack, int *r_count);
 t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size);

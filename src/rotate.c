@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:54:40 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/10 19:23:07 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:13:33 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,21 @@ void	rotate(t_list **stack)
 	}
 }
 
-void	ra(t_list **stack_a, t_list **stack_o)
+void	ra(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	rotate(stack_a);
-	add_operation(stack_o, RA);
+	add_operation(stack_a, stack_b, stack_o, RA);
 }
 
-void	rb(t_list **stack_b, t_list **stack_o)
+void	rb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	rotate(stack_b);
-	add_operation(stack_o, RB);
+	add_operation(stack_a, stack_b, stack_o, RB);
 }
 
 void	rr(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	rotate(stack_a);
 	rotate(stack_b);
-	add_operation(stack_o, RR);
+	add_operation(stack_a, stack_b, stack_o, RR);
 }

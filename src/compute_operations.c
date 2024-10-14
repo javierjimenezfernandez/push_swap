@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:29:28 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 16:56:38 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:28:25 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 		if (assign_index(stack_a) == PS_MALLOC_FAIL)
 		{
 			free_stack(stack_a, free);
+			ft_putstr_fd("Error\n", 2);
 			return (PS_MALLOC_FAIL);
 		}
 		if (is_already_sorted(stack_a))
 			return (PS_OK);
 		if (stack_size <= 3)
-			small_algorithm(stack_a, stack_o, stack_size);
+			small_algorithm(stack_a, stack_b, stack_o, stack_size);
 		else
-			return (big_algorithm(stack_a, stack_b, stack_o, stack_size));
+			big_algorithm(stack_a, stack_b, stack_o, stack_size);
 		return (PS_OK);
 	}
 }

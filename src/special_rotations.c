@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/08 20:47:02 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/10 21:47:32 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:21:34 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
 			(costs.rb_cost)--;
 		}
 		while ((costs.rb_cost)--)
-			rb(stack_b, stack_o);
+			rb(stack_a, stack_b, stack_o);
 	}
 	else
 	{
@@ -33,7 +33,7 @@ void	ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
 			(costs.ra_cost)--;
 		}
 		while ((costs.ra_cost)--)
-			ra(stack_a, stack_o);
+			ra(stack_a, stack_b, stack_o);
 	}
 }
 
@@ -48,7 +48,7 @@ void	rra_rrb_rrr(t_rot_costs costs, t_list **stack_a, \
 			(costs.rrb_cost)--;
 		}
 		while ((costs.rrb_cost)--)
-			rrb(stack_b, stack_o);
+			rrb(stack_a, stack_b, stack_o);
 	}
 	else
 	{
@@ -58,7 +58,7 @@ void	rra_rrb_rrr(t_rot_costs costs, t_list **stack_a, \
 			(costs.rra_cost)--;
 		}
 		while ((costs.rra_cost)--)
-			rra(stack_a, stack_o);
+			rra(stack_a, stack_b, stack_o);
 	}
 }
 
@@ -70,9 +70,9 @@ void	ra_rrb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
 				ft_max2(costs.rra_cost, costs.rrb_cost)))
 	{
 		while ((costs.ra_cost)--)
-			ra(stack_a, stack_o);
+			ra(stack_a, stack_b, stack_o);
 		while ((costs.rrb_cost)--)
-			rrb(stack_b, stack_o);
+			rrb(stack_a, stack_b, stack_o);
 	}
 	else if (ft_max2(costs.ra_cost, costs.rb_cost) <= \
 			ft_min2(costs.ra_cost + costs.rrb_cost, \
@@ -90,9 +90,9 @@ void	rra_rb_or_ra_rb_rr_or_ra_rb_rr(t_rot_costs costs, t_list **stack_a, \
 						ft_max2(costs.rra_cost, costs.rrb_cost)))
 	{
 		while ((costs.rra_cost)--)
-			rra(stack_a, stack_o);
+			rra(stack_a, stack_b, stack_o);
 		while ((costs.rb_cost)--)
-			rb(stack_b, stack_o);
+			rb(stack_a, stack_b, stack_o);
 	}
 	else if (ft_max2(costs.ra_cost, costs.rb_cost) <= \
 			ft_min2(costs.rra_cost + costs.rb_cost, \

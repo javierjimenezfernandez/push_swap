@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:54:29 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/10 19:24:32 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:13:23 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	push(t_list	**dst_stack, t_list **src_stack)
 void	pa(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	push(stack_a, stack_b);
-	add_operation(stack_o, PA);
+	add_operation(stack_a, stack_b, stack_o, PA);
 }
 
 void	pb(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 {
 	push(stack_b, stack_a);
-	add_operation(stack_o, PB);
+	add_operation(stack_a, stack_b, stack_o, PB);
 }

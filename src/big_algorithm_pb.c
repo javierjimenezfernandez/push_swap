@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 16:09:38 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:20:35 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,14 @@ t_list	*pb_cheapest(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 	if (ra_count <= ft_lstsize(*stack_a) / 2)
 	{
 		while (ra_count--)
-			ra(stack_a, stack_o);
+			ra(stack_a, stack_b, stack_o);
 		pb(stack_a, stack_b, stack_o);
 	}
 	else
 	{
 		rra_count = ft_lstsize(*stack_a) - ra_count;
 		while (rra_count--)
-			rra(stack_a, stack_o);
+			rra(stack_a, stack_b, stack_o);
 		pb(stack_a, stack_b, stack_o);
 	}
 	return (cheapest);
@@ -100,7 +100,7 @@ t_ps_error	pb_chunks(t_list **stack_a, t_list **stack_b, \
 									stack_size - 1 - (i * chnk_sz), 1);
 			if (is_in_chunk(pb_cheapest(stack_a, stack_b, stack_o), \
 				stack_size - (i + 1) * chnk_sz, stack_size - 1 - (i * chnk_sz)))
-				rb(stack_b, stack_o);
+				rb(stack_a, stack_b, stack_o);
 			if (!((((*stack_a)->next)->next)->next))
 				break ;
 		}

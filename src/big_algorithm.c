@@ -6,13 +6,14 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 13:37:16 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:28:57 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	put_smaller_first(t_list **stack_a, t_list **stack_o, int stack_size)
+void	put_smaller_first(t_list **stack_a, t_list **stack_b, \
+							t_list **stack_o, int stack_size)
 {
 	int		ra_count;
 	int		rra_count;
@@ -24,12 +25,12 @@ void	put_smaller_first(t_list **stack_a, t_list **stack_o, int stack_size)
 	if (ra_count <= rra_count)
 	{
 		while (ra_count--)
-			ra(stack_a, stack_o);
+			ra(stack_a, stack_b, stack_o);
 	}
 	else
 	{
 		while (rra_count--)
-			rra(stack_a, stack_o);
+			rra(stack_a, stack_b, stack_o);
 	}
 }
 
@@ -65,8 +66,8 @@ t_ps_error	big_algorithm(t_list **stack_a, t_list **stack_b, \
 							t_list **stack_o, int stack_size)
 {
 	pb_chunks(stack_a, stack_b, stack_o, stack_size);
-	small_algorithm(stack_a, stack_o, ft_lstsize(*stack_a));
+	small_algorithm(stack_a, stack_b, stack_o, ft_lstsize(*stack_a));
 	pa_back(stack_a, stack_b, stack_o);
-	put_smaller_first(stack_a, stack_o, stack_size);
+	put_smaller_first(stack_a, stack_b, stack_o, stack_size);
 	return (PS_OK);
 }

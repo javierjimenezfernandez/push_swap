@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 12:45:23 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 16:14:16 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 17:07:37 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,13 +279,18 @@ int	compare_cost(t_list *node_a, t_list *node_b)
 	return (get_cost(node_a) - get_cost(node_b));
 }
 
-void	add_operation(t_list **stack_o, char *op_name)
+void	add_operation(t_list **stack_a, t_list **stack_b, \
+						t_list **stack_o, char *op_name)
 {
 	t_list	*new_op;
 
 	new_op = ft_lstnew(ft_strdup(op_name));
 	if (!new_op)
-		return ;
+	{
+		free_stacks(stack_a, stack_b, stack_o, free);
+		ft_putstr_fd("Error\n", 2);
+		exit(EXIT_FAILURE);
+	}
 	ft_lstadd_back(stack_o, new_op);
 }
 
