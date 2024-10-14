@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 16:47:24 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/14 16:56:26 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void		rrb(t_list **stack_b, t_list **stack_o);
 void		rrr(t_list **stack_a, t_list **stack_b, t_list **stack_o);
 
 /* compute operations */
+int			is_already_sorted(t_list **stack);
 t_ps_error	compute_operations(t_list **stack_a, t_list **stack_b, \
 								t_list **stack_o, int stack_size);
 
