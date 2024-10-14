@@ -110,9 +110,7 @@ int			biggest(t_list **stack);
 int			distance_to_biggest(t_list **stack);
 
 /* split argv2list */
-void		s_array_free(char **s_array);
-t_ps_error	add_node(char ***splitted_argv, int i, t_list **new_node, \
-						t_list **stack);
+t_ps_error	s_array_free(char **s_array);
 t_ps_error	split_argv2list(char **argv, t_list **stack_a);
 
 /* input control */
