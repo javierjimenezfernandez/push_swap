@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/10/14 16:08:05 by javjimen         ###   ########.fr        #
+#    Updated: 2024/10/15 12:19:38 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,21 +20,30 @@ LIBFT		= $(LIBFT_PATH)/libft.a
 # List of source files
 SRC_DIR		= src/
 SRC			= $(addprefix $(SRC_DIR), main.c \
-									  stack_utils.c \
-									  split_argv2list.c \
-									  input_control.c \
-									  swap.c \
-									  push.c \
-									  rotate.c \
-									  reverse_rotate.c \
-									  compute_operations.c \
-									  small_algorithm.c \
-									  big_algorithm.c \
-									  big_algorithm_pb.c \
-									  big_algorithm_pa_back.c \
-									  assign_index.c \
-									  special_rotations.c \
-									  init.c)
+									  content_management/get_content.c \
+									  content_management/set_content.c \
+									  content_management/compare_content.c \
+									  content_management/print_content.c \
+									  utils/ps_math.c \
+									  utils/stack_utils.c \
+									  utils/free_stack.c \
+									  utils/assign_index.c \
+									  utils/print_stack.c \
+									  utils/print_stack_row.c \
+									  input/split_argv2list.c \
+									  input/input_control.c \
+									  operations/swap.c \
+									  operations/push.c \
+									  operations/rotate.c \
+									  operations/reverse_rotate.c \
+									  operations/special_rotations.c \
+									  operations/add_operation.c \
+									  operations/print_operations.c \
+									  algorithm/compute_operations.c \
+									  algorithm/small_algorithm.c \
+									  algorithm/big_algorithm.c \
+									  algorithm/big_algorithm_pb.c \
+									  algorithm/big_algorithm_pa_back.c)
 
 # List of object files
 OBJ_DIR		= obj/

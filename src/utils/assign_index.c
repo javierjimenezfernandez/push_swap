@@ -6,19 +6,19 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 13:55:43 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 12:19:15 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_list	*node_w_new_content(t_list *i)
+t_list	*node_w_content(t_list *i)
 {
 	t_list		*new_node;
 	t_content	*new_content;
 
 	new_content = (t_content *)malloc(sizeof(t_content));
-	if (init_content(new_content) == PS_MALLOC_FAIL)
+	if (!new_content)
 		return (NULL);
 	new_node = ft_lstnew(new_content);
 	if (!new_node)
@@ -26,7 +26,7 @@ t_list	*node_w_new_content(t_list *i)
 		free(new_content);
 		return (NULL);
 	}
-	set_value(new_node, *(int *)(i->content));
+	set_content(new_node, INIT_INDEX, INIT_COST, *(int *)(i->content));
 	return (new_node);
 }
 
@@ -40,7 +40,7 @@ t_ps_error	add_content(t_list **stack)
 	i = *stack;
 	while (i)
 	{
-		new_node = node_w_new_content(i);
+		new_node = node_w_content(i);
 		if (!new_node)
 		{
 			free_stack(&new_stack, free);
