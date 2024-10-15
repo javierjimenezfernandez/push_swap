@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:27:42 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/15 12:19:15 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:22:25 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ t_list	*find_next(t_list **stack, t_list *candidate, t_list *prev_candidate)
 	i = *stack;
 	while (i)
 	{
-		if ((compare_values(i, prev_candidate) > 0) \
-			&& (compare_values(i, candidate) < 0))
+		if ((get_value(prev_candidate) < get_value(i)) && \
+			(get_value(i) < get_value(candidate)))
 			candidate = i;
 		i = i->next;
 	}

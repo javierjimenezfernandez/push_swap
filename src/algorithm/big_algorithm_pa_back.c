@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:52:55 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 12:08:51 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:19:11 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,18 @@ int	compute_r_before_push(t_list **stack, t_list *node)
 	t_list	*j;
 
 	smallest = get_smallest(stack);
-	if (compare_values(node, smallest) < 0)
+	if (get_value(node) < get_value(smallest))
 		return (r_distance_to_node(stack, smallest));
 	biggest = get_biggest(stack);
-	if (compare_values(biggest, node) < 0)
+	if (get_value(biggest) < get_value(node))
 		return (r_distance_to_node(stack, biggest) + 1);
 	r_count = 1;
 	i = *stack;
 	j = i->next;
 	while (j)
 	{
-		if (compare_values(i, node) < 0 && compare_values(node, j) < 0)
+		if ((get_value(i) < get_value(node)) && \
+			(get_value(node) < get_value(j)))
 			return (r_count);
 		r_count++;
 		i = i->next;

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:19:47 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 17:17:26 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:11:18 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	twonum_logic(t_list **stack_a, t_list **stack_b, t_list **stack_o)
 
 	first = *stack_a;
 	second = first->next;
-	if (compare_values(first, second) > 0)
+	if (get_value(first) > get_value(second))
 		sa(stack_a, stack_b, stack_o);
 }
 

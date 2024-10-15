@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 01:27:49 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/15 12:09:59 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:15:10 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,6 @@ void		set_index(t_list *node, int index);
 void		set_cost(t_list *node, int cost);
 void		set_value(t_list *node, int value);
 void		set_content(t_list *node, int index, int cost, int value);
-
-/* compare content */
-int			compare_values(t_list *node_a, t_list *node_b);
-int			compare_index(t_list *node_a, t_list *node_b);
-int			compare_index_w_int(t_list *node_a, int index);
-int			compare_cost(t_list *node_a, t_list *node_b);
 
 /* print content */
 void		print_index(t_list *node);

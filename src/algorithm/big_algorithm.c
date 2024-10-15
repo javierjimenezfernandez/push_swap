@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 17:20:19 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 17:28:57 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 20:16:09 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_list	*get_cheapest(t_list **stack, int *r_count)
 	{
 		if (get_cost(i) >= 0)
 		{
-			if (first_candidate || compare_cost(i, cheapest) < 0)
+			if (first_candidate || (get_cost(i) < get_cost(cheapest)))
 			{
 				cheapest = i;
 				*r_count = count;

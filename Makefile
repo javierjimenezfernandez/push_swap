@@ -6,7 +6,7 @@
 #    By: javjimen <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/21 23:21:14 by javjimen          #+#    #+#              #
-#    Updated: 2024/10/15 12:19:38 by javjimen         ###   ########.fr        #
+#    Updated: 2024/10/15 20:15:19 by javjimen         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SRC_DIR		= src/
 SRC			= $(addprefix $(SRC_DIR), main.c \
 									  content_management/get_content.c \
 									  content_management/set_content.c \
-									  content_management/compare_content.c \
 									  content_management/print_content.c \
 									  utils/ps_math.c \
 									  utils/stack_utils.c \

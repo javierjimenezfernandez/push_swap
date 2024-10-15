@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 16:29:28 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 17:28:25 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 18:56:59 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_already_sorted(t_list **stack)
 	i = *stack;
 	while (i->next)
 	{
-		if (compare_values(i, i->next) > 0)
+		if (get_value(i) > get_value(i->next))
 			sorted_flag = 0;
 		i = i->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: javjimen <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 14:58:45 by javjimen          #+#    #+#             */
-/*   Updated: 2024/10/14 17:20:35 by javjimen         ###   ########.fr       */
+/*   Updated: 2024/10/15 19:41:59 by javjimen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	compute_chnk_qty_nd_sz(int *chnk_qty, int *chnk_sz, int stack_size)
 
 int	is_in_chunk(t_list	*node, int chunk_min_index, int chunk_max_index)
 {
-	if (compare_index_w_int(node, chunk_min_index) >= 0 && \
-		compare_index_w_int(node, chunk_max_index) <= 0)
+	if (chunk_min_index <= get_index(node) && \
+		get_index(node) <= chunk_max_index)
 		return (1);
 	else
 		return (0);
